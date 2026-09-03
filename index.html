@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Supplementary Material for Behara & Seta 2026 - Cloud Density PDF Fitting Analysis" />
+  <title>Behara &amp; Seta 2026 Supplementary Material</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+  <div class="site-wrapper">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-left">
+        <span class="nav-mark">∿</span>
+        <h1 class="nav-title">Behara &amp; Seta 2026 Supplementary Material</h1>
+      </div>
+      <nav class="nav-actions">
+        <a href="https://sasimitrab.github.io/" class="btn btn-nav">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Homepage
+        </a>
+      </nav>
+    </header>
+
+    <!-- Landing Hero -->
+    <section class="landing-hero" aria-label="Paper introduction">
+      <div class="landing-hero-inner">
+        <div class="landing-hero-left">
+          <div id="hero-cloud-canvas-container" class="hero-cloud-canvas-container"
+            aria-label="Interactive 3D representation of turbulent cloud">
+            <div class="hero-cloud-placeholder">
+              <div class="viewer-spinner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="landing-hero-right">
+          <p class="landing-kicker">Supplementary Material · Behara &amp; Seta 2026</p>
+          <h2 class="landing-heading">Non-lognormal density probability distribution and turbulent Mach numbers in the
+            local Interstellar Medium from three-dimensional data</h2>
+          <p class="landing-body">
+            The probability distribution function (PDF) of gas density is a key tool used to study turbulence and
+            star formation in the interstellar medium (ISM), and is typically modelled as a lognormal distribution.
+            Observational studies have been limited to two-dimensional column-density maps, which fail to capture the
+            intermittency, which are key to alternative, non-lognormal models such as the Castaing-Hopkins Model. We use
+            the parsec-scale three-dimensional dust map of the local ISM ($\le 1250 \, \mathrm{pc}$) from Edenhofer et al. (2024)
+            to measure, for the first time, the volumetric density PDF of individual molecular clouds directly in 3D.
+          </p>
+          <p class="landing-body">
+            We identify $766$ clouds using the dendrogram algorithm, study their turbulent envelopes, and fit each
+            cloud's density PDF with four candidate models: Lognormal, Castaing-Hopkins, and their modifications
+            with a power-law tail. Of the $475$ clouds successfully fit ($62\%$), the population shows an overwhelming
+            preference for Castaing-Hopkins models ($76\%$ of fitted clouds, compared to $24\%$ for lognormal models),
+            with a substantial fraction requiring non-zero intermittency. We report this as the first observational
+            evidence for non-lognormal density PDFs in the ISM, and find the local ISM is dominated by transonic to mildly supersonic turbulence.
+          </p>
+          <nav class="landing-cta-row" aria-label="Jump to section">
+            <a href="#theory-section" class="landing-cta-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+              </svg>
+              Interactive Theory
+            </a>
+            <a href="#analytics-section" class="landing-cta-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Catalog Statistics
+            </a>
+            <a href="#cloud-catalog-section" class="landing-cta-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="4" />
+                <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+                <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+                <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+                <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+              </svg>
+              See the Clouds in 3D
+            </a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <main class="main-content">
+
+      <!-- ── Section 1: Interactive Theory ── -->
+      <section class="theory-section" id="theory-section"
+        aria-label="Theoretical framework and interactive PDF sandbox">
+        <div class="section-heading-block">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+          </div>
+          <h2 class="section-heading">Theoretical Framework · Interactive PDF Simulator</h2>
+        </div>
+
+        <div class="theory-intro-banner panel">
+          <p>
+            We model the volume-weighted PDF of the logarithmic normalized density, $$s = \ln(\rho / \rho_0)$$ where
+            $\rho$ is the local density and $\rho_0$ is the mean cloud density. Select a theoretical model on the left
+            and adjust the physical parameters to explore how turbulence and self-gravity govern the density PDF shape.
+          </p>
+        </div>
+
+        <div class="theory-interactive-container">
+          <!-- Left Column: Model Selector Pane -->
+          <aside class="panel theory-nav-panel" aria-label="PDF Model Selection Navigation">
+            <div class="panel-header-simple">
+              <h3 class="panel-title-sm">Select Model</h3>
+              <p class="panel-subtitle-sm">Choose PDF theory</p>
+            </div>
+
+            <div class="theory-nav-list" role="tablist" aria-label="Model theory selection tabs">
+              <button class="theory-nav-item active" data-theory-model="gaussian" role="tab" aria-selected="true"
+                id="tab-gaussian">
+                <div class="theory-nav-top">
+                  <span class="theory-badge badge-ln">$\mathcal{LN}$</span>
+                  <span class="theory-nav-tag">Isothermal</span>
+                </div>
+                <div class="theory-nav-name">Lognormal PDF</div>
+                <div class="theory-nav-desc">Pure supersonic isothermal turbulence</div>
+              </button>
+
+              <button class="theory-nav-item" data-theory-model="hopkins" role="tab" aria-selected="false"
+                id="tab-hopkins">
+                <div class="theory-nav-top">
+                  <span class="theory-badge badge-ch">$\mathcal{CH}$</span>
+                  <span class="theory-nav-tag">Intermittent</span>
+                </div>
+                <div class="theory-nav-name">Castaing-Hopkins PDF</div>
+                <div class="theory-nav-desc">Intermittent compressible cascade</div>
+              </button>
+
+              <button class="theory-nav-item" data-theory-model="gauss_exp" role="tab" aria-selected="false"
+                id="tab-gauss_exp">
+                <div class="theory-nav-top">
+                  <span class="theory-badge badge-lnpl">$\mathcal{LN}\text{–}\mathcal{PL}$</span>
+                  <span class="theory-nav-tag">Gravoturbulent</span>
+                </div>
+                <div class="theory-nav-name">LN + Power Law</div>
+                <div class="theory-nav-desc">Lognormal core + self-gravitating tail</div>
+              </button>
+
+              <button class="theory-nav-item" data-theory-model="hopkins_exp" role="tab" aria-selected="false"
+                id="tab-hopkins_exp">
+                <div class="theory-nav-top">
+                  <span class="theory-badge badge-chpl">$\mathcal{CH}\text{–}\mathcal{PL}$</span>
+                  <span class="theory-nav-tag">Gravoturbulent</span>
+                </div>
+                <div class="theory-nav-name">Hopkins + Power Law</div>
+                <div class="theory-nav-desc">Intermittent core + self-gravitating tail</div>
+              </button>
+            </div>
+
+            <!-- Plot Display Options -->
+            <div class="theory-display-options">
+              <span class="options-label">Display Options</span>
+              <label class="toggle-option">
+                <input type="checkbox" id="toggle-ref-gaussian" checked />
+                <span class="toggle-text">Show Reference $\mathcal{LN}$ ($\sigma=1$)</span>
+              </label>
+              <label class="toggle-option">
+                <input type="checkbox" id="toggle-log-y" checked />
+                <span class="toggle-text">Logarithmic Y-scale ($\log_{10} p$)</span>
+              </label>
+            </div>
+          </aside>
+
+          <!-- Right Column: Interactive Workspace (Live Plot + Sliders + Theory Box) -->
+          <div class="theory-workspace">
+            <!-- 1. Interactive Simulation & Plot Card -->
+            <div class="panel theory-sim-panel">
+              <div class="sim-panel-header">
+                <div class="sim-header-left">
+                  <div class="title-with-badge">
+                    <h3 class="panel-title" id="sim-active-title">Lognormal PDF Simulation</h3>
+                    <span class="active-filter-tag" id="sim-active-badge">$\mathcal{LN}$ Interactive</span>
+                  </div>
+                  <p class="panel-subtitle" id="sim-active-subtitle">Explore density distribution $p(s)$ as a function
+                    of logarithmic density $s = \ln(\rho / \langle\rho\rangle)$</p>
+                </div>
+              </div>
+
+              <!-- D3 Plot Container -->
+              <div class="sim-chart-container">
+                <div id="theory-plot" class="theory-plot-svg-wrapper" role="img"
+                  aria-label="Live interactive probability density function plot"></div>
+              </div>
+
+              <!-- Sliders Strip -->
+              <div class="sim-controls-section">
+                <div class="controls-heading">
+                  <span class="controls-title">Model Parameters</span>
+                  <span class="controls-hint">Drag sliders to adjust physical parameters</span>
+                </div>
+                <div class="sim-sliders-grid" id="sim-sliders-container"></div>
+              </div>
+            </div>
+
+            <!-- 2. Relevant Theory Box -->
+            <article class="panel theory-info-panel" id="theory-info-container" aria-label="Theoretical Formulation">
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Section 2: Catalog Statistics ── -->
+      <section class="catalog-stats-section" id="analytics-section"
+        aria-label="Catalog statistics and model distribution">
+        <div class="section-heading-block">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+          </div>
+          <h2 class="section-heading">Catalog Statistics: Mass and Radius Distribution</h2>
+        </div>
+
+        <!-- 4 Metric Cards -->
+        <div class="metrics-grid" aria-label="Executive simulation summary metrics">
+          <div class="panel metric-card" id="card-total">
+            <div class="metric-header">
+              <span class="metric-label">Total Clouds Analyzed</span>
+              <span class="metric-badge">Catalog</span>
+            </div>
+            <strong id="stat-total-clouds" class="metric-value">—</strong>
+            <span class="metric-meta">Clouds Identified with Dendogram Algorithm</span>
+          </div>
+
+          <div class="panel metric-card highlight-fit" id="card-fitted">
+            <div class="metric-header">
+              <span class="metric-label">Successfully Fitted</span>
+              <span id="stat-fitted-pct-badge" class="metric-badge success">—</span>
+            </div>
+            <strong id="stat-fitted-clouds" class="metric-value">—</strong>
+            <span id="stat-fitted-meta" class="metric-meta">Converged across 4 PDF candidate models</span>
+          </div>
+
+          <div class="panel metric-card highlight-powerlaw" id="card-powerlaw">
+            <div class="metric-header">
+              <span class="metric-label">Power-Law Tails</span>
+              <span id="stat-powerlaw-pct" class="metric-badge amber">—</span>
+            </div>
+            <strong id="stat-powerlaw-count" class="metric-value">—</strong>
+            <span class="metric-meta">$\mathcal{LN-PL} + \mathcal{CH-PL}$ (Gravitational contraction)</span>
+          </div>
+
+          <div class="panel metric-card highlight-hopkins" id="card-hopkins">
+            <div class="metric-header">
+              <span class="metric-label">Hopkins Preference</span>
+              <span id="stat-hopkins-pct" class="metric-badge green">—</span>
+            </div>
+            <strong id="stat-hopkins-count" class="metric-value">—</strong>
+            <span class="metric-meta">$\mathcal{CH} + \mathcal{CH-PL}$ (Intermittent turbulence)</span>
+          </div>
+        </div>
+
+        <!-- Analytics: Donut + Model List + Scatter -->
+        <div class="analytics-layout">
+          <!-- 1/4: Donut / Pie Chart Panel -->
+          <div class="panel chart-panel donut-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Distribution</h3>
+                <p class="panel-subtitle">PDF model share</p>
+              </div>
+            </div>
+            <div class="donut-container-wrapper">
+              <div id="pie-chart" class="donut-chart-wrapper" role="img"
+                aria-label="Donut chart showing cloud count per preferred model">
+                <div id="donut-center-overlay" class="donut-center-overlay">
+                  <span id="donut-center-val" class="donut-center-val">—</span>
+                  <span id="donut-center-lbl" class="donut-center-lbl">Fitted Clouds</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1/4: Model List & Filter Panel -->
+          <div class="panel chart-panel model-list-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Select Model</h3>
+                <p class="panel-subtitle">Filter clouds &amp; scaling</p>
+              </div>
+              <button id="btn-reset-filter" class="btn-filter-reset active" title="Show all cloud models">
+                All Models
+              </button>
+            </div>
+            <div id="pie-legend" class="model-legend-list"></div>
+          </div>
+
+          <!-- 1/2: Mass vs Length Scale Scatter & Live Fit Panel -->
+          <div class="panel chart-panel scatter-panel">
+            <div class="panel-header">
+              <div>
+                <div class="title-with-badge">
+                  <h3 class="panel-title">Mass vs Length Scale Relation</h3>
+                  <span id="active-model-badge" class="active-filter-tag">All Clouds ($N=766$)</span>
+                </div>
+                <p class="panel-subtitle">Log-log scaling: $\log_{10}(M / M_\odot) = \alpha \log_{10}(L / \text{pc}) +
+                  \beta$</p>
+              </div>
+            </div>
+
+            <!-- Fit Telemetry Strip -->
+            <div class="fit-telemetry-bar">
+              <div class="fit-formula" id="fit-formula-text">
+                $M \propto L^{2.61 \pm 0.03}$
+              </div>
+              <div class="fit-stats-pills">
+                <div class="fit-pill">
+                  <span class="fit-pill-label">Slope ($\alpha$)</span>
+                  <strong class="fit-pill-val" id="fit-slope">2.61 ± 0.03</strong>
+                </div>
+                <div class="fit-pill">
+                  <span class="fit-pill-label">Intercept ($\beta$)</span>
+                  <strong class="fit-pill-val" id="fit-intercept">-1.06 ± 0.05</strong>
+                </div>
+                <div class="fit-pill">
+                  <span class="fit-pill-label">Correlation ($R^2$)</span>
+                  <strong class="fit-pill-val" id="fit-r2">0.921</strong>
+                </div>
+                <div class="fit-pill">
+                  <span class="fit-pill-label">Clouds ($N$)</span>
+                  <strong class="fit-pill-val" id="fit-count">766</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- D3 Scatter Container -->
+            <div id="scatter-chart" class="scatter-chart-wrapper" role="img"
+              aria-label="Interactive log-log scatter plot of Mass versus Length Scale with power law fit"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Section 3: Cloud Catalog Explorer ── -->
+      <section class="cloud-catalog-section" id="cloud-catalog-section" aria-label="Cloud Catalog by Model">
+        <div class="section-heading-block">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+          </div>
+          <h2 class="section-heading">Explore Clouds and their PDF Fits</h2>
+        </div>
+
+        <div class="panel catalog-container-panel">
+          <!-- Model Selector Tabs Toolbar -->
+          <div class="catalog-toolbar">
+            <div class="catalog-toolbar-left">
+              <span class="catalog-toolbar-label">Select Model:</span>
+              <div class="catalog-model-tabs" role="tablist" id="catalog-model-tabs">
+                <button class="catalog-tab-btn active" data-model="gaussian" role="tab" aria-selected="true"
+                  id="cat-tab-gaussian">
+                  <span class="tab-indicator" style="background: var(--color-ln)"></span>
+                  <span class="tab-tex">$\mathcal{LN}$</span>
+                  <span class="tab-name">Log-Normal</span>
+                </button>
+                <button class="catalog-tab-btn" data-model="gauss_exp" role="tab" aria-selected="false"
+                  id="cat-tab-gauss_exp">
+                  <span class="tab-indicator" style="background: var(--color-lnpl)"></span>
+                  <span class="tab-tex">$\mathcal{LN}\text{–}\mathcal{PL}$</span>
+                  <span class="tab-name">LN + Power Law</span>
+                </button>
+                <button class="catalog-tab-btn" data-model="hopkins" role="tab" aria-selected="false"
+                  id="cat-tab-hopkins">
+                  <span class="tab-indicator" style="background: var(--color-ch)"></span>
+                  <span class="tab-tex">$\mathcal{CH}$</span>
+                  <span class="tab-name">Castaing-Hopkins</span>
+                </button>
+                <button class="catalog-tab-btn" data-model="hopkins_exp" role="tab" aria-selected="false"
+                  id="cat-tab-hopkins_exp">
+                  <span class="tab-indicator" style="background: var(--color-chpl)"></span>
+                  <span class="tab-tex">$\mathcal{CH}\text{–}\mathcal{PL}$</span>
+                  <span class="tab-name">Hopkins + Power Law</span>
+                </button>
+                <button class="catalog-tab-btn" data-model="Failed" role="tab" aria-selected="false"
+                  id="cat-tab-failed">
+                  <span class="tab-indicator" style="background: var(--color-failed)"></span>
+                  <span class="tab-tex">Failed</span>
+                  <span class="tab-name">Unconstrained</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="catalog-toolbar-right">
+              <span class="catalog-count-badge" id="catalog-count-badge">0 clouds</span>
+            </div>
+          </div>
+
+          <!-- Main Catalog Layout: Left List + Right Detail Inspector -->
+          <div class="catalog-layout">
+            <!-- Left: Scrollable List of Clouds -->
+            <div class="catalog-sidebar">
+              <div class="catalog-search-box">
+                <input type="text" id="catalog-search-input" class="catalog-search-input"
+                  placeholder="Search Cloud ID (e.g., 42)..." />
+              </div>
+              <div class="catalog-list-scroll" id="catalog-cloud-list" role="listbox"
+                aria-label="Clouds sorted by reduced chi-squared">
+                <!-- Dynamically populated cloud items -->
+              </div>
+            </div>
+
+            <!-- Right: Selected Cloud Detail Inspector Card -->
+            <div class="catalog-detail-pane" id="catalog-cloud-detail">
+              <!-- Dynamically populated cloud inspection details -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="status-wrap">
+          <span id="status-dot" class="status-dot"></span>
+          <span id="load-status">Loading catalog…</span>
+        </div>
+        <div class="footer-links">
+          <span>Catalog Source: <code>data/merged_data.csv</code></span>
+          <span class="separator">·</span>
+          <span>Behara &amp; Seta 2026</span>
+          <span class="separator">·</span>
+          <a href="https://sasimitrab.github.io/" class="footer-home-link">sasimitrab.github.io</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Interactive Floating Tooltip -->
+  <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

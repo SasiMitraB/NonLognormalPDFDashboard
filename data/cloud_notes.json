@@ -1,0 +1,12 @@
+{
+  "_schema_description": "Cloud Catalog Notes: Key by Cloud ID (as a string, e.g. '1', '2', '42'). You can provide a plain text note string, or an object with 'note' and optional 'tag', 'author', or 'date'.",
+  "1": "High-density core cloud with pronounced power-law tail (lambda ~ 2.1). Shows clear signature of self-gravitating collapse.",
+  "2": "Quiescent diffuse cloud with low intermittency theta parameter. Well described by pure lognormal model.",
+  "3": "Intermittent compressible cascade candidate with elevated non-Gaussian wings in the low-density tail.",
+  "12": {
+    "note": "Notable massive cloud candidate situated near dense central filament. Gravoturbulent transition observed at s_thresh = 1.4.",
+    "tag": "Gravoturbulent",
+    "author": "SB"
+  },
+  "42": "Fitted across candidate models. Strong agreement with Castaing-Hopkins intermittent core."
+}
