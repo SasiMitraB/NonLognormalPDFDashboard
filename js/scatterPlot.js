@@ -45,8 +45,8 @@ export function updateFitBanner(fitResult, modelKey) {
   const slopeErrStr = fitResult.slopeErr.toFixed(2);
   formulaEl.innerHTML = renderLatex(`M \\propto L^{${slopeStr} \\pm ${slopeErrStr}}`);
 
-  slopeEl.textContent = `${fitResult.slope.toFixed(2)} ± ${fitResult.slopeErr.toFixed(2)}`;
-  interceptEl.textContent = `${fitResult.intercept.toFixed(2)} ± ${fitResult.interceptErr.toFixed(2)}`;
+  slopeEl.innerHTML = renderLatex(`${fitResult.slope.toFixed(2)} \\pm ${fitResult.slopeErr.toFixed(2)}`);
+  interceptEl.innerHTML = renderLatex(`${fitResult.intercept.toFixed(2)} \\pm ${fitResult.interceptErr.toFixed(2)}`);
   r2El.textContent = fitResult.r2.toFixed(3);
   countEl.textContent = fitResult.n.toLocaleString();
 
@@ -126,7 +126,7 @@ export function initScatterPlot() {
     .attr('height', 30)
     .append('xhtml:div')
     .attr('class', 'scatter-axis-title-latex')
-    .html(renderLatex('\\text{Characteristic Length Scale } L \\ (\\text{pc}) \\ [\\text{Log Scale}]'));
+    .html(renderLatex('\\text{Characteristic Length Scale } L \\ (\\mathrm{pc}) \\ [\\log \\text{ scale}]'));
 
   g.append('g')
     .attr('transform', 'rotate(-90)')
@@ -137,7 +137,7 @@ export function initScatterPlot() {
     .attr('height', 30)
     .append('xhtml:div')
     .attr('class', 'scatter-axis-title-latex')
-    .html(renderLatex('\\text{Cloud Mass } M \\ (M_\\odot) \\ [\\text{Log Scale}]'));
+    .html(renderLatex('\\text{Cloud Mass } M \\ (M_\\odot) \\ [\\log \\text{ scale}]'));
 
   // Clipped Plot Area Group
   const plotArea = g.append('g').attr('clip-path', `url(#${clipId})`);

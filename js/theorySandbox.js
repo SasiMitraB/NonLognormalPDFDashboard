@@ -22,7 +22,7 @@ export const THEORY_CONFIG = {
     color: '#38bdf8',
     subtitle: 'Turbulent Model I · Lognormal PDF',
     params: [
-      { id: 'sigma', nameTex: '\\sigma_{\\mathrm{LN}}', label: 'Dispersion (σ_LN)', min: 0.3, max: 2.5, step: 0.05, default: 1.0, desc: 'Turbulent density dispersion.' }
+      { id: 'sigma', nameTex: '\\sigma_{\\mathrm{LN}}', label: 'Dispersion ($\\sigma_{\\mathrm{LN}}$)', min: 0.3, max: 2.5, step: 0.05, default: 1.0, desc: 'Turbulent density dispersion.' }
     ],
     evaluate: (s, p) => lognormalPDF(s, p.sigma),
     formulaTex: '\\mathrm{PDF}(s) = \\frac{1}{\\sigma_{\\mathrm{LN}} \\sqrt{2\\pi}} \\exp\\left( -\\frac{(s - \\mu_s)^2}{2 \\sigma_{\\mathrm{LN}}^2} \\right)',
@@ -30,11 +30,11 @@ export const THEORY_CONFIG = {
     blocks: [
       {
         heading: 'Multiplicative Perturbations & Central Limit Theorem',
-        text: 'The lognormal model of the density PDF (Vazquez-Semadeni 1994; Federrath et al. 2008) begins with the idea that the perturbations in the density field are multiplicative, and the logarithm of the density field is a sum of these perturbations. Assuming infinitely many identically distribtued perturbations, the central limit therorem gives a normal distribution for the PDF of $s = \\ln(\\rho / \\rho_0)$.'
+        text: 'The lognormal model of the density PDF (Vazquez-Semadeni 1994; Federrath et al. 2008) begins with the idea that the perturbations in the density field are multiplicative, and the logarithm of the density field is a sum of these perturbations. Assuming infinitely many identically distributed perturbations, the central limit theorem gives a normal distribution for the PDF of $s = \\ln(\\rho / \\rho_0)$.'
       },
       {
         heading: "Current Status",
-        text: "This model has been widely tested against simulations (Federrath et al. 2008). When workign with column density observations, the PDF of column density is assumed to follow a Lognormal Distribution (Schneider et al. 2022; Burkhart 2018)."
+        text: "This model has been widely tested against simulations (Federrath et al. 2008). When working with column density observations, the PDF of column density is assumed to follow a Lognormal Distribution (Schneider et al. 2022; Burkhart 2018)."
       }
     ]
   },
@@ -47,8 +47,8 @@ export const THEORY_CONFIG = {
     color: '#34d399',
     subtitle: 'Turbulent Model II · Log-Poisson Model',
     params: [
-      { id: 'sigma', nameTex: '\\sigma_{\\mathcal{CH}}', label: 'Dispersion (σ_CH)', min: 0.3, max: 2.5, step: 0.05, default: 1.0, desc: 'Base turbulent dispersion across the cloud volume.' },
-      { id: 'theta', nameTex: '\\theta_{\\mathcal{CH}}', label: 'Intermittency (θ_CH)', min: 0.001, max: 0.40, step: 0.01, default: 0.15, desc: 'Intermittency parameter capturing non-Gaussian skewness.' }
+      { id: 'sigma', nameTex: '\\sigma_{\\mathcal{CH}}', label: 'Dispersion ($\\sigma_{\\mathcal{CH}}$)', min: 0.3, max: 2.5, step: 0.05, default: 1.0, desc: 'Base turbulent dispersion across the cloud volume.' },
+      { id: 'theta', nameTex: '\\theta_{\\mathcal{CH}}', label: 'Intermittency ($\\theta_{\\mathcal{CH}}$)', min: 0.001, max: 0.40, step: 0.01, default: 0.15, desc: 'Intermittency parameter capturing non-Gaussian skewness.' }
     ],
     evaluate: (s, p) => castaingHopkinsPDF(s, p.sigma, p.theta),
     formulaTex: '\\mathrm{PDF}(s) = \\sqrt{\\frac{\\lambda}{\\theta^2 \\omega}} \\, \\tilde{I}_1(2\\sqrt{\\lambda \\omega}) \\exp\\left[-\\left(\\sqrt{\\lambda} - \\sqrt{\\omega}\\right)^2\\right]',
@@ -56,11 +56,11 @@ export const THEORY_CONFIG = {
     blocks: [
       {
         heading: 'Intermittent Cascade & Skewed PDF',
-        text: 'Postulating that Density Statistics should more closely follow the velocity statistics proposed in Castaing (1996), Hopkins (2013) proposed this model. This introduces a new parameter, intermittency ($\theta_\\mathcal{CH}$), which captures the deviation from lognormality. In the limit of small intermittency ($\theta_\\mathcal{CH} \\to 0$), the model smoothly converges to the standard lognormal PDF.'
+        text: 'Postulating that Density Statistics should more closely follow the velocity statistics proposed in Castaing (1996), Hopkins (2013) proposed this model. This introduces a new parameter, intermittency ($\\theta_\\mathcal{CH}$), which captures the deviation from lognormality. In the limit of small intermittency ($\\theta_\\mathcal{CH} \\to 0$), the model smoothly converges to the standard lognormal PDF.'
       },
       {
-        heading: 'Maximum Allowed Turbulent Density)',
-        text: 'A unique feature of this model, that isn\'t seen in the Lognormal Model is the maximum allowed density.The mathematical constraint $\\omega > 0$ enforces an upper bound on density generated purely by turbulent compression: $$s_{\\mathrm{max}} = \\frac{\\lambda \\theta_\\mathcal{CH}}{1+\\theta_\\mathcal{CH}}$$ Beyond $s_{\\mathrm{max}}$, the probability strictly vanishes, producing a finite, sharp high-density cutoff.'
+        heading: 'Maximum Allowed Turbulent Density',
+        text: 'A unique feature of this model, that isn\'t seen in the Lognormal Model is the maximum allowed density. The mathematical constraint $\\omega > 0$ enforces an upper bound on density generated purely by turbulent compression: $$s_{\\mathrm{max}} = \\frac{\\lambda \\theta_\\mathcal{CH}}{1+\\theta_\\mathcal{CH}}$$ Beyond $s_{\\mathrm{max}}$, the probability strictly vanishes, producing a finite, sharp high-density cutoff.'
       },
       {
         heading: "Current Status",
@@ -71,15 +71,15 @@ export const THEORY_CONFIG = {
   gauss_exp: {
     key: 'gauss_exp',
     title: 'LN + Power Law (Gravoturbulent)',
-    badgeTex: '\\mathcal{LN}\\text{–}\\mathcal{PL}',
+    badgeTex: '\\mathcal{LN}\\text{--}\\mathcal{PL}',
     badgeClass: 'badge-lnpl',
     themeClass: 'theme-gauss_exp',
     color: '#fbbf24',
     subtitle: 'Gravoturbulent Model · Lognormal core + self-gravitating tail',
     params: [
-      { id: 'sigma', nameTex: '\\sigma_{\\mathrm{LN}}', label: 'Core Dispersion (σ_LN)', min: 0.3, max: 2.2, step: 0.05, default: 1.0, desc: 'Dispersion of the turbulent lognormal core.' },
-      { id: 'sThresh', nameTex: 's_{\\mathrm{thresh}}', label: 'Transition Threshold (s_thresh)', min: -0.5, max: 3.0, step: 0.1, default: 1.0, desc: 'Density where self-gravity overcomes turbulent support.' },
-      { id: 'lambda', nameTex: '\\Lambda', label: 'Power-Law Slope (Λ)', min: 0.5, max: 4.0, step: 0.1, default: 2.0, desc: 'Decay slope of high-density tail (shallower = faster collapse).' }
+      { id: 'sigma', nameTex: '\\sigma_{\\mathrm{LN}}', label: 'Core Dispersion ($\\sigma_{\\mathrm{LN}}$)', min: 0.3, max: 2.2, step: 0.05, default: 1.0, desc: 'Dispersion of the turbulent lognormal core.' },
+      { id: 'sThresh', nameTex: 's_{\\mathrm{thresh}}', label: 'Transition Threshold ($s_{\\mathrm{thresh}}$)', min: -0.5, max: 3.0, step: 0.1, default: 1.0, desc: 'Density where self-gravity overcomes turbulent support.' },
+      { id: 'lambda', nameTex: '\\Lambda', label: 'Power-Law Slope ($\\Lambda$)', min: 0.5, max: 4.0, step: 0.1, default: 2.0, desc: 'Decay slope of high-density tail (shallower = faster collapse).' }
     ],
     evaluate: (s, p) => piecewiseLNPL_PDF(s, p.sigma, p.sThresh, p.lambda),
     formulaTex: '\\mathrm{PDF}(s) = \\begin{cases} A \\cdot \\frac{1}{\\sigma_{\\mathrm{LN}} \\sqrt{2\\pi}} \\exp\\left( -\\frac{(s - \\mu_s)^2}{2 \\sigma_{\\mathrm{LN}}^2} \\right) & \\text{if } s < s_{\\mathrm{thresh}}, \\\\[8pt] C \\cdot f_{\\mathrm{LN}}(s_{\\mathrm{thresh}})\\, e^{-\\Lambda (s - s_{\\mathrm{thresh}})} & \\text{if } s \\geq s_{\\mathrm{thresh}} \\end{cases}',
@@ -87,23 +87,23 @@ export const THEORY_CONFIG = {
     blocks: [
       {
         heading: 'Gravitational Collapse & Power-Law Tails',
-        text: 'Gravity affects the density PDF by creating a power-law decay at higher densities in $\\rho$, which manifests as an exponential decay in $s$ (Klessen 2001). In general, above a given threshold density $s_\\mathrm{thresh}$, the PDF can be modelled as: $PDF(s) \\propto e^{-\\Lambda s}$ where $\\Lambda$ is the power-law slope. The turbulent PDF core ($\\mathcal{LN}$ here), is extended in a piecewise continious manner.'
-      },
+        text: 'Gravity affects the density PDF by creating a power-law decay at higher densities in $\\rho$, which manifests as an exponential decay in $s$ (Klessen 2001). In general, above a given threshold density $s_\\mathrm{thresh}$, the PDF can be modelled as: $\\mathrm{PDF}(s) \\propto e^{-\\Lambda s}$ where $\\Lambda$ is the power-law slope. The turbulent PDF core ($\\mathcal{LN}$ here), is extended in a piecewise continuous manner.'
+      }
     ]
   },
   hopkins_exp: {
     key: 'hopkins_exp',
     title: 'Hopkins + Power Law (Gravoturbulent)',
-    badgeTex: '\\mathcal{CH}\\text{–}\\mathcal{PL}',
+    badgeTex: '\\mathcal{CH}\\text{--}\\mathcal{PL}',
     badgeClass: 'badge-chpl',
     themeClass: 'theme-hopkins_exp',
     color: '#f87171',
     subtitle: 'Gravoturbulent Model · Intermittent core + self-gravitating tail',
     params: [
-      { id: 'sigma', nameTex: '\\sigma_{\\mathrm{CH}}', label: 'Core Dispersion (σ_CH)', min: 0.3, max: 2.2, step: 0.05, default: 1.0, desc: 'Dispersion of the intermittent turbulent base.' },
-      { id: 'theta', nameTex: '\\theta_{\\mathrm{CH}}', label: 'Intermittency (θ_CH)', min: 0.001, max: 0.40, step: 0.01, default: 0.15, desc: 'Intermittency parameter of the turbulent core.' },
-      { id: 'sThresh', nameTex: 's_{\\mathrm{thresh}}', label: 'Transition Threshold (s_thresh)', min: -0.5, max: 3.0, step: 0.1, default: 1.0, desc: 'Density where self-gravity takes over the intermittent core.' },
-      { id: 'lambda', nameTex: '\\Lambda', label: 'Power-Law Slope (Λ)', min: 0.5, max: 4.0, step: 0.1, default: 2.0, desc: 'Decay slope of the gravitational power-law tail.' }
+      { id: 'sigma', nameTex: '\\sigma_{\\mathrm{CH}}', label: 'Core Dispersion ($\\sigma_{\\mathrm{CH}}$)', min: 0.3, max: 2.2, step: 0.05, default: 1.0, desc: 'Dispersion of the intermittent turbulent base.' },
+      { id: 'theta', nameTex: '\\theta_{\\mathrm{CH}}', label: 'Intermittency ($\\theta_{\\mathrm{CH}}$)', min: 0.001, max: 0.40, step: 0.01, default: 0.15, desc: 'Intermittency parameter of the turbulent core.' },
+      { id: 'sThresh', nameTex: 's_{\\mathrm{thresh}}', label: 'Transition Threshold ($s_{\\mathrm{thresh}}$)', min: -0.5, max: 3.0, step: 0.1, default: 1.0, desc: 'Density where self-gravity takes over the intermittent core.' },
+      { id: 'lambda', nameTex: '\\Lambda', label: 'Power-Law Slope ($\\Lambda$)', min: 0.5, max: 4.0, step: 0.1, default: 2.0, desc: 'Decay slope of the gravitational power-law tail.' }
     ],
     evaluate: (s, p) => piecewiseCHPL_PDF(s, p.sigma, p.theta, p.sThresh, p.lambda),
     formulaTex: '\\mathrm{PDF}(s) = \\begin{cases} A \\cdot \\sqrt{\\frac{\\lambda}{\\theta_{\\mathrm{CH}}^2 \\omega}} \\, \\tilde{I}_1(2\\sqrt{\\lambda \\omega}) \\exp\\left[-\\left(\\sqrt{\\lambda} - \\sqrt{\\omega}\\right)^2\\right] & \\text{if } s < s_{\\mathrm{thresh}}, \\\\[8pt] C \\cdot f_{\\mathrm{CH}}(s_{\\mathrm{thresh}})\\, e^{-\\Lambda (s - s_{\\mathrm{thresh}})} & \\text{if } s \\geq s_{\\mathrm{thresh}} \\end{cases}',
@@ -111,7 +111,7 @@ export const THEORY_CONFIG = {
     blocks: [
       {
         heading: 'Gravitational Collapse & Power-Law Tails',
-        text: 'Gravity affects the density PDF by creating a power-law decay at higher densities in $\\rho$, which manifests as an exponential decay in $s$ (Klessen 2001). In general, above a given threshold density $s_\\mathrm{thresh}$, the PDF can be modelled as: $PDF(s) \\propto e^{-\\Lambda s}$ where $\\Lambda$ is the power-law slope. The turbulent PDF core ($\\mathcal{CH}$ here), is extended in a piecewise continious manner.'
+        text: 'Gravity affects the density PDF by creating a power-law decay at higher densities in $\\rho$, which manifests as an exponential decay in $s$ (Klessen 2001). In general, above a given threshold density $s_\\mathrm{thresh}$, the PDF can be modelled as: $\\mathrm{PDF}(s) \\propto e^{-\\Lambda s}$ where $\\Lambda$ is the power-law slope. The turbulent PDF core ($\\mathcal{CH}$ here), is extended in a piecewise continuous manner.'
       }
     ]
   }
@@ -207,23 +207,24 @@ function buildTheoryPlotSVG() {
   theoryXAxisG = theoryG.append('g').attr('class', 'x-axis');
   theoryYAxisG = theoryG.append('g').attr('class', 'y-axis');
 
-  // Axis Labels
-  theoryG.append('text')
-    .attr('class', 'axis-label x-axis-label')
-    .attr('text-anchor', 'middle')
-    .attr('fill', '#9ba3b5')
-    .attr('font-size', '12px')
-    .attr('font-family', 'Plus Jakarta Sans, sans-serif')
-    .text('Logarithmic Normalized Density, s = ln(ρ / ⟨ρ⟩)');
+  // Axis Labels using ForeignObject KaTeX
+  theoryG.append('foreignObject')
+    .attr('class', 'x-axis-foreign')
+    .attr('height', 28)
+    .append('xhtml:div')
+    .attr('class', 'scatter-axis-title-latex')
+    .html(renderLatex('\\text{Logarithmic Normalized Density, } s = \\ln(\\rho / \\langle\\rho\\rangle)'));
 
-  theoryG.append('text')
-    .attr('class', 'axis-label y-axis-label')
-    .attr('text-anchor', 'middle')
-    .attr('transform', 'rotate(-90)')
-    .attr('fill', '#9ba3b5')
-    .attr('font-size', '12px')
-    .attr('font-family', 'Plus Jakarta Sans, sans-serif')
-    .text('Probability Density, p(s)');
+  const yForeignG = theoryG.append('g')
+    .attr('class', 'y-axis-foreign-group')
+    .attr('transform', 'rotate(-90)');
+
+  yForeignG.append('foreignObject')
+    .attr('class', 'y-axis-foreign')
+    .attr('height', 28)
+    .append('xhtml:div')
+    .attr('class', 'scatter-axis-title-latex')
+    .html(renderLatex('\\text{Probability Density, } p(s)'));
 
   // Reference Gaussian Path
   theoryRefLinePath = theoryG.append('path')
@@ -386,13 +387,15 @@ export function updateTheoryPlot(animate = false) {
   const height = Math.max(160, totalHeight - theoryMargin.top - theoryMargin.bottom);
 
   // Position axis labels & overlay
-  theoryG.select('.x-axis-label')
-    .attr('x', width / 2)
-    .attr('y', height + 38);
+  theoryG.select('.x-axis-foreign')
+    .attr('x', 0)
+    .attr('y', height + 24)
+    .attr('width', width);
 
-  theoryG.select('.y-axis-label')
-    .attr('x', -height / 2)
-    .attr('y', -42);
+  theoryG.select('.y-axis-foreign')
+    .attr('x', -height)
+    .attr('y', -52)
+    .attr('width', height);
 
   theoryG.select('.theory-overlay')
     .attr('width', width)
@@ -570,8 +573,8 @@ function onTheoryPlotMouseMove(event) {
 
   showTooltip(event, `
     <div class="tooltip-title">${config.title}</div>
-    <div class="tooltip-row"><span class="label">Log Density (s):</span><span class="val">${sVal.toFixed(2)}</span></div>
-    <div class="tooltip-row"><span class="label">Density Ratio (ρ / ⟨ρ⟩):</span><span class="val">${rhoRatio < 0.01 ? rhoRatio.toExponential(2) : rhoRatio.toFixed(2)}</span></div>
-    <div class="tooltip-row"><span class="label">Probability Density p(s):</span><span class="val">${pVal.toFixed(4)}</span></div>
+    <div class="tooltip-row"><span class="label">Log Density ($s$):</span><span class="val">${sVal.toFixed(2)}</span></div>
+    <div class="tooltip-row"><span class="label">Density Ratio ($\\rho / \\langle\\rho\\rangle$):</span><span class="val">${rhoRatio < 0.01 ? rhoRatio.toExponential(2) : rhoRatio.toFixed(2)}</span></div>
+    <div class="tooltip-row"><span class="label">Probability Density $p(s)$:</span><span class="val">${pVal.toFixed(4)}</span></div>
   `);
 }

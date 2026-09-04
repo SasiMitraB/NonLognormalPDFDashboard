@@ -176,12 +176,12 @@ export function renderCloudCatalog(autoSelectFirst = true) {
           ${noteExists ? `<span class="cloud-note-badge" title="Has notes in cloud_notes.json">📝</span>` : ''}
         </div>
         <div class="cloud-item-sub">
-          <span>L: ${lengthFormatted}</span> · <span>M: ${massFormatted} M☉</span>
+          <span>L: ${lengthFormatted}</span> · <span>M: ${massFormatted} $M_\\odot$</span>
         </div>
       </div>
       <div class="cloud-item-right">
         <span class="cloud-chi2-val">${chiFormatted}</span>
-        <span class="cloud-chi2-label">${item.redChi2 > 0 ? 'χ²_red' : 'Status'}</span>
+        <span class="cloud-chi2-label">${item.redChi2 > 0 ? '$\\chi^2_{\\text{red}}$' : 'Status'}</span>
       </div>
     `;
 
@@ -200,6 +200,8 @@ export function renderCloudCatalog(autoSelectFirst = true) {
     listContainer.appendChild(card);
   });
 
+  triggerKaTeXAutoRender(listContainer);
+
   const selectedItem = sortedClouds.find(c => c.cloud.cloud_id === state.selectedCatalogCloudId) || sortedClouds[0];
   if (selectedItem) {
     renderCloudDetail(selectedItem);
@@ -211,7 +213,7 @@ export function renderCloudDetail(item, activeModelOverride = null) {
   if (!detailPane) return;
 
   const d = item.cloud;
-  
+
   // If in 'Failed' tab and no model pill selected, activeModelKey is null (no fit overlay by default)
   let activeModelKey = activeModelOverride !== null ? activeModelOverride : state.selectedInspectorModel;
   if (!activeModelKey && state.currentCatalogModel !== 'Failed') {
@@ -228,21 +230,21 @@ export function renderCloudDetail(item, activeModelOverride = null) {
       <div class="detail-params-section">
         <div class="detail-params-title">Fitted Log-Normal Parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Dispersion (σ_LN):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Mean (μ):</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Amplitude (A):</span><strong class="p-val">${fit.A !== null ? fit.A.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Dispersion ($\\sigma_{\\mathrm{LN}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Mean ($\\mu$):</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Amplitude ($A$):</span><strong class="p-val">${fit.A !== null ? fit.A.toFixed(3) : '—'}</strong></div>
         </div>
       </div>
     `;
   } else if (activeModelKey === 'gauss_exp' && fit) {
     paramsHtml = `
       <div class="detail-params-section">
-        <div class="detail-params-title">Fitted LN + Power Law Parameters</div>
+        <div class="detail-params-title">Fitted $\\mathcal{LN}\\text{--}\\mathcal{PL}$ Parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Core Dispersion (σ_LN):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Threshold (s_thresh):</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Power-Law Slope (Λ):</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Mean (μ):</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Core Dispersion ($\\sigma_{\\mathrm{LN}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Threshold ($s_{\\mathrm{thresh}}$):</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Power-Law Slope ($\\Lambda$):</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Mean ($\\mu$):</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
         </div>
       </div>
     `;
@@ -251,8 +253,8 @@ export function renderCloudDetail(item, activeModelOverride = null) {
       <div class="detail-params-section">
         <div class="detail-params-title">Fitted Castaing-Hopkins Parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Dispersion (σ_CH):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Intermittency (θ_CH):</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Dispersion ($\\sigma_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Intermittency ($\\theta_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
         </div>
       </div>
     `;
@@ -261,10 +263,10 @@ export function renderCloudDetail(item, activeModelOverride = null) {
       <div class="detail-params-section">
         <div class="detail-params-title">Fitted Hopkins + Power Law Parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Dispersion (σ_CH):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Intermittency (θ_CH):</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Threshold (s_thresh):</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Tail Slope (Λ):</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Dispersion ($\\sigma_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Intermittency ($\\theta_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Threshold ($s_{\\mathrm{thresh}}$):</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">Tail Slope ($\\Lambda$):</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
         </div>
       </div>
     `;
@@ -282,9 +284,9 @@ export function renderCloudDetail(item, activeModelOverride = null) {
   // Interactive model comparison table / clickable chips for this cloud
   const comparisonList = [
     { key: 'gaussian', label: 'LN', fit: d.modelFits?.gaussian },
-    { key: 'gauss_exp', label: 'LN–PL', fit: d.modelFits?.gauss_exp },
+    { key: 'gauss_exp', label: 'LN-PL', fit: d.modelFits?.gauss_exp },
     { key: 'hopkins', label: 'CH', fit: d.modelFits?.hopkins },
-    { key: 'hopkins_exp', label: 'CH–PL', fit: d.modelFits?.hopkins_exp }
+    { key: 'hopkins_exp', label: 'CH-PL', fit: d.modelFits?.hopkins_exp }
   ];
 
   const modelComparisonPills = comparisonList.map(m => {
@@ -333,7 +335,7 @@ export function renderCloudDetail(item, activeModelOverride = null) {
 
       <div class="detail-fit-score-box">
         <div class="score-item">
-          <span class="score-label">${activeModelKey ? `Reduced χ² (${modelMeta.name})` : 'Catalog Status'}</span>
+          <span class="score-label">${activeModelKey ? `Reduced $\\chi^2$ (${modelMeta.name})` : 'Catalog Status'}</span>
           <strong class="score-val" style="color: ${badgeColor};">${fit && fit.redChi2 ? fit.redChi2.toFixed(3) : (d.preferred_model === 'Failed' ? 'Unconstrained' : '—')}</strong>
         </div>
         ${fit && fit.aic !== null ? `
@@ -401,7 +403,7 @@ export function renderCloudDetail(item, activeModelOverride = null) {
         <div class="detail-grid-metrics">
           <div class="detail-metric-card">
             <span class="label">Mass ($M$)</span>
-            <strong class="val">${formatScientific(d.mass)} M☉</strong>
+            <strong class="val">${formatScientific(d.mass)} $M_\\odot$</strong>
           </div>
           <div class="detail-metric-card">
             <span class="label">Length Scale ($L$)</span>
@@ -429,23 +431,23 @@ export function renderCloudDetail(item, activeModelOverride = null) {
 
         <!-- Notes & Observations Section for This Cloud -->
         ${(() => {
-          const rawNote = getCloudNote(d.cloud_id);
-          if (hasCloudNote(d.cloud_id)) {
-            let noteText = '';
-            let noteTag = null;
-            let noteMetaStr = '';
-            if (typeof rawNote === 'string') {
-              noteText = rawNote.trim();
-            } else if (typeof rawNote === 'object') {
-              noteText = (rawNote.note || rawNote.text || rawNote.content || rawNote.description || JSON.stringify(rawNote)).trim();
-              noteTag = rawNote.tag || rawNote.category || rawNote.label || null;
-              const metaParts = [rawNote.author ? `Author: ${rawNote.author}` : null, rawNote.date ? `Date: ${rawNote.date}` : null].filter(Boolean);
-              if (metaParts.length > 0) {
-                noteMetaStr = metaParts.join(' · ');
-              }
-            }
+      const rawNote = getCloudNote(d.cloud_id);
+      if (hasCloudNote(d.cloud_id)) {
+        let noteText = '';
+        let noteTag = null;
+        let noteMetaStr = '';
+        if (typeof rawNote === 'string') {
+          noteText = rawNote.trim();
+        } else if (typeof rawNote === 'object') {
+          noteText = (rawNote.note || rawNote.text || rawNote.content || rawNote.description || JSON.stringify(rawNote)).trim();
+          noteTag = rawNote.tag || rawNote.category || rawNote.label || null;
+          const metaParts = [rawNote.author ? `Author: ${rawNote.author}` : null, rawNote.date ? `Date: ${rawNote.date}` : null].filter(Boolean);
+          if (metaParts.length > 0) {
+            noteMetaStr = metaParts.join(' · ');
+          }
+        }
 
-            return `
+        return `
               <div class="detail-notes-section">
                 <div class="detail-notes-header">
                   <div class="detail-notes-title-group">
@@ -463,9 +465,9 @@ export function renderCloudDetail(item, activeModelOverride = null) {
                 </div>
               </div>
             `;
-          }
-          return '';
-        })()}
+      }
+      return '';
+    })()}
       </div>
     </div>
   `;
@@ -560,227 +562,229 @@ export function renderCloudDetailPlot(histCsvPath, cloudData, fitInfo, modelKey)
 function drawHistogramPlot(container, cloudData, binCenters, meanCounts, errorCounts, fitInfo, modelKey) {
   container.innerHTML = '';
 
-    if (binCenters.length < 2) {
-      container.innerHTML = `<div class="catalog-empty-msg">Insufficient histogram data for Cloud #${cloudData.cloud_id}</div>`;
-      return;
-    }
+  if (binCenters.length < 2) {
+    container.innerHTML = `<div class="catalog-empty-msg">Insufficient histogram data for Cloud #${cloudData.cloud_id}</div>`;
+    return;
+  }
 
-    // Bin width dx (grid resolution is 0.1 in log-density)
-    const dx = 0.1;
+  // Bin width dx (grid resolution is 0.1 in log-density)
+  const dx = 0.1;
 
-    // 1. Normalize histogram to PDF (as in utils.normalize_histogram_to_pdf)
-    let totalCount = 0;
-    for (let i = 0; i < meanCounts.length; i++) {
-      totalCount += meanCounts[i];
-    }
-    const totalArea = totalCount * dx;
-    if (totalArea <= 0) {
-      container.innerHTML = `<div class="catalog-empty-msg">Total histogram area is zero for Cloud #${cloudData.cloud_id}</div>`;
-      return;
-    }
+  // 1. Normalize histogram to PDF (as in utils.normalize_histogram_to_pdf)
+  let totalCount = 0;
+  for (let i = 0; i < meanCounts.length; i++) {
+    totalCount += meanCounts[i];
+  }
+  const totalArea = totalCount * dx;
+  if (totalArea <= 0) {
+    container.innerHTML = `<div class="catalog-empty-msg">Total histogram area is zero for Cloud #${cloudData.cloud_id}</div>`;
+    return;
+  }
 
-    // 2. Filter by SNR >= 5 (as in utils.filter_by_snr)
-    const filteredPoints = [];
-    for (let i = 0; i < binCenters.length; i++) {
-      const mc = meanCounts[i];
-      const ec = errorCounts[i];
-      const snr = ec > 0 ? mc / ec : 0;
-      if (snr >= 5.0 && mc > 0) {
-        const pdf = mc / totalArea;
-        const pdfErr = (ec / mc) * pdf;
-        filteredPoints.push({
-          s: binCenters[i],
-          pdf,
-          pdfErr,
-          meanCount: mc,
-          errorCount: ec,
-          snr
-        });
+  // 2. Filter by SNR >= 5 (as in utils.filter_by_snr)
+  const filteredPoints = [];
+  for (let i = 0; i < binCenters.length; i++) {
+    const mc = meanCounts[i];
+    const ec = errorCounts[i];
+    const snr = ec > 0 ? mc / ec : 0;
+    if (snr >= 5.0 && mc > 0) {
+      const pdf = mc / totalArea;
+      const pdfErr = (ec / mc) * pdf;
+      filteredPoints.push({
+        s: binCenters[i],
+        pdf,
+        pdfErr,
+        meanCount: mc,
+        errorCount: ec,
+        snr
+      });
+    }
+  }
+
+  if (filteredPoints.length === 0) {
+    container.innerHTML = `<div class="catalog-empty-msg">No bins with $\\text{SNR} \\ge 5$ found for Cloud #${cloudData.cloud_id}</div>`;
+    triggerKaTeXAutoRender(container);
+    return;
+  }
+
+  // SVG Setup - 1:1 Square Plot Area
+  const svgSize = 480;
+  const margin = { top: 25, right: 30, bottom: 52, left: 60 };
+  const innerW = svgSize - margin.left - margin.right;
+  const innerH = svgSize - margin.top - margin.bottom;
+
+  const svg = d3.select(container)
+    .append('svg')
+    .attr('viewBox', `0 0 ${svgSize} ${svgSize}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('width', '100%')
+    .style('height', '100%')
+    .style('display', 'block');
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+  // Domains
+  const sMin = d3.min(filteredPoints, d => d.s) - 0.5;
+  const sMax = d3.max(filteredPoints, d => d.s) + 0.5;
+  const maxDataPdf = d3.max(filteredPoints, d => d.pdf + d.pdfErr);
+
+  const xScale = d3.scaleLinear().domain([sMin, sMax]).range([0, innerW]);
+  const yScale = d3.scaleLog().domain([1e-4, Math.max(1.2, maxDataPdf * 1.6)]).range([innerH, 0]).clamp(true);
+
+  // Vertical grid lines
+  const xTicks = xScale.ticks(7);
+  xTicks.forEach(tick => {
+    g.append('line')
+      .attr('x1', xScale(tick))
+      .attr('x2', xScale(tick))
+      .attr('y1', 0)
+      .attr('y2', innerH)
+      .attr('stroke', 'rgba(255, 255, 255, 0.05)')
+      .attr('stroke-dasharray', '2, 2');
+  });
+
+  // Horizontal grid lines
+  const yGridTicks = [1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1].filter(y => y >= yScale.domain()[0] && y <= yScale.domain()[1]);
+  yGridTicks.forEach(tick => {
+    g.append('line')
+      .attr('x1', 0)
+      .attr('x2', innerW)
+      .attr('y1', yScale(tick))
+      .attr('y2', yScale(tick))
+      .attr('stroke', 'rgba(255, 255, 255, 0.05)')
+      .attr('stroke-dasharray', '2, 2');
+  });
+
+  // Axes
+  const xAxis = d3.axisBottom(xScale).ticks(7);
+  const yAxis = d3.axisLeft(yScale).ticks(5, '.0e');
+
+  g.append('g')
+    .attr('class', 'theory-axis')
+    .attr('transform', `translate(0, ${innerH})`)
+    .call(xAxis);
+
+  g.append('g')
+    .attr('class', 'theory-axis')
+    .call(yAxis);
+
+  // Axis Labels using KaTeX ForeignObject
+  g.append('foreignObject')
+    .attr('x', 0)
+    .attr('y', innerH + 24)
+    .attr('width', innerW)
+    .attr('height', 28)
+    .append('xhtml:div')
+    .attr('class', 'scatter-axis-title-latex')
+    .html(renderLatex('s = \\ln(\\rho / \\langle\\rho\\rangle)'));
+
+  g.append('g')
+    .attr('transform', 'rotate(-90)')
+    .append('foreignObject')
+    .attr('x', -innerH)
+    .attr('y', -52)
+    .attr('width', innerH)
+    .attr('height', 28)
+    .append('xhtml:div')
+    .attr('class', 'scatter-axis-title-latex')
+    .html(renderLatex('p(s) \\ [\\log \\text{ scale}]'));
+
+  // Evaluate Fitted Model Curve (if a model is active and has parameters)
+  if (modelKey && fitInfo) {
+    const modelMeta = MODEL_META[modelKey] || { color: '#38bdf8' };
+    const numCurvePoints = 200;
+    const curveStep = (sMax - sMin) / (numCurvePoints - 1);
+    const curvePoints = [];
+
+    for (let i = 0; i < numCurvePoints; i++) {
+      const s = sMin + i * curveStep;
+      let pVal = 0;
+      if (modelKey === 'gaussian' && fitInfo.sigma) {
+        pVal = lognormalPDF(s, fitInfo.sigma, fitInfo.mu);
+      } else if (modelKey === 'gauss_exp' && fitInfo.sigma && fitInfo.sThresh && fitInfo.lambda) {
+        pVal = piecewiseLNPL_PDF(s, fitInfo.sigma, fitInfo.sThresh, fitInfo.lambda, fitInfo.mu);
+      } else if (modelKey === 'hopkins' && fitInfo.sigma && fitInfo.theta) {
+        pVal = castaingHopkinsPDF(s, fitInfo.sigma, fitInfo.theta);
+      } else if (modelKey === 'hopkins_exp' && fitInfo.sigma && fitInfo.theta && fitInfo.sThresh && fitInfo.lambda) {
+        pVal = piecewiseCHPL_PDF(s, fitInfo.sigma, fitInfo.theta, fitInfo.sThresh, fitInfo.lambda);
       }
+      curvePoints.push({ s, p: Math.max(1e-6, pVal) });
     }
 
-    if (filteredPoints.length === 0) {
-      container.innerHTML = `<div class="catalog-empty-msg">No bins with SNR ≥ 5 found for Cloud #${cloudData.cloud_id}</div>`;
-      return;
-    }
+    // Line generator
+    const lineGen = d3.line()
+      .x(d => xScale(d.s))
+      .y(d => yScale(Math.max(1e-4, d.p)))
+      .curve(d3.curveMonotoneX);
 
-    // SVG Setup - 1:1 Square Plot Area
-    const svgSize = 480;
-    const margin = { top: 25, right: 30, bottom: 52, left: 60 };
-    const innerW = svgSize - margin.left - margin.right;
-    const innerH = svgSize - margin.top - margin.bottom;
+    // Draw Overlaid Fit Line
+    g.append('path')
+      .datum(curvePoints)
+      .attr('fill', 'none')
+      .attr('stroke', modelMeta.color || '#38bdf8')
+      .attr('stroke-width', 2.2)
+      .attr('d', lineGen);
+  }
 
-    const svg = d3.select(container)
-      .append('svg')
-      .attr('viewBox', `0 0 ${svgSize} ${svgSize}`)
-      .attr('preserveAspectRatio', 'xMidYMid meet')
-      .style('width', '100%')
-      .style('height', '100%')
-      .style('display', 'block');
+  // Draw Error Bars for Data Points
+  const errGroup = g.append('g').attr('class', 'data-error-bars');
+  filteredPoints.forEach(pt => {
+    const yBottom = yScale(Math.max(1e-4, pt.pdf - pt.pdfErr));
+    const yTop = yScale(Math.max(1e-4, pt.pdf + pt.pdfErr));
+    const xPos = xScale(pt.s);
 
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    errGroup.append('line')
+      .attr('x1', xPos)
+      .attr('x2', xPos)
+      .attr('y1', yTop)
+      .attr('y2', yBottom)
+      .attr('stroke', 'rgba(255, 255, 255, 0.45)')
+      .attr('stroke-width', 1.2);
 
-    // Domains
-    const sMin = d3.min(filteredPoints, d => d.s) - 0.5;
-    const sMax = d3.max(filteredPoints, d => d.s) + 0.5;
-    const maxDataPdf = d3.max(filteredPoints, d => d.pdf + d.pdfErr);
+    // Tick caps on error bars
+    errGroup.append('line')
+      .attr('x1', xPos - 2.5)
+      .attr('x2', xPos + 2.5)
+      .attr('y1', yTop)
+      .attr('y2', yTop)
+      .attr('stroke', 'rgba(255, 255, 255, 0.45)')
+      .attr('stroke-width', 1.2);
 
-    const xScale = d3.scaleLinear().domain([sMin, sMax]).range([0, innerW]);
-    const yScale = d3.scaleLog().domain([1e-4, Math.max(1.2, maxDataPdf * 1.6)]).range([innerH, 0]).clamp(true);
+    errGroup.append('line')
+      .attr('x1', xPos - 2.5)
+      .attr('x2', xPos + 2.5)
+      .attr('y1', yBottom)
+      .attr('y2', yBottom)
+      .attr('stroke', 'rgba(255, 255, 255, 0.45)')
+      .attr('stroke-width', 1.2);
+  });
 
-    // Vertical grid lines
-    const xTicks = xScale.ticks(7);
-    xTicks.forEach(tick => {
-      g.append('line')
-        .attr('x1', xScale(tick))
-        .attr('x2', xScale(tick))
-        .attr('y1', 0)
-        .attr('y2', innerH)
-        .attr('stroke', 'rgba(255, 255, 255, 0.05)')
-        .attr('stroke-dasharray', '2, 2');
-    });
-
-    // Horizontal grid lines
-    const yGridTicks = [1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1].filter(y => y >= yScale.domain()[0] && y <= yScale.domain()[1]);
-    yGridTicks.forEach(tick => {
-      g.append('line')
-        .attr('x1', 0)
-        .attr('x2', innerW)
-        .attr('y1', yScale(tick))
-        .attr('y2', yScale(tick))
-        .attr('stroke', 'rgba(255, 255, 255, 0.05)')
-        .attr('stroke-dasharray', '2, 2');
-    });
-
-    // Axes
-    const xAxis = d3.axisBottom(xScale).ticks(7);
-    const yAxis = d3.axisLeft(yScale).ticks(5, '.0e');
-
-    g.append('g')
-      .attr('class', 'theory-axis')
-      .attr('transform', `translate(0, ${innerH})`)
-      .call(xAxis);
-
-    g.append('g')
-      .attr('class', 'theory-axis')
-      .call(yAxis);
-
-    // Axis Labels
-    g.append('text')
-      .attr('x', innerW / 2)
-      .attr('y', innerH + 38)
-      .attr('text-anchor', 'middle')
-      .attr('fill', '#9ba3b5')
-      .attr('font-size', '12px')
-      .attr('font-family', 'Plus Jakarta Sans, sans-serif')
-      .text('s = ln(ρ / ⟨ρ⟩)');
-
-    g.append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('x', -innerH / 2)
-      .attr('y', -44)
-      .attr('text-anchor', 'middle')
-      .attr('fill', '#9ba3b5')
-      .attr('font-size', '12px')
-      .attr('font-family', 'Plus Jakarta Sans, sans-serif')
-      .text('p(s) [log scale]');
-
-    // Evaluate Fitted Model Curve (if a model is active and has parameters)
-    if (modelKey && fitInfo) {
-      const modelMeta = MODEL_META[modelKey] || { color: '#38bdf8' };
-      const numCurvePoints = 200;
-      const curveStep = (sMax - sMin) / (numCurvePoints - 1);
-      const curvePoints = [];
-
-      for (let i = 0; i < numCurvePoints; i++) {
-        const s = sMin + i * curveStep;
-        let pVal = 0;
-        if (modelKey === 'gaussian' && fitInfo.sigma) {
-          pVal = lognormalPDF(s, fitInfo.sigma, fitInfo.mu);
-        } else if (modelKey === 'gauss_exp' && fitInfo.sigma && fitInfo.sThresh && fitInfo.lambda) {
-          pVal = piecewiseLNPL_PDF(s, fitInfo.sigma, fitInfo.sThresh, fitInfo.lambda, fitInfo.mu);
-        } else if (modelKey === 'hopkins' && fitInfo.sigma && fitInfo.theta) {
-          pVal = castaingHopkinsPDF(s, fitInfo.sigma, fitInfo.theta);
-        } else if (modelKey === 'hopkins_exp' && fitInfo.sigma && fitInfo.theta && fitInfo.sThresh && fitInfo.lambda) {
-          pVal = piecewiseCHPL_PDF(s, fitInfo.sigma, fitInfo.theta, fitInfo.sThresh, fitInfo.lambda);
-        }
-        curvePoints.push({ s, p: Math.max(1e-6, pVal) });
-      }
-
-      // Line generator
-      const lineGen = d3.line()
-        .x(d => xScale(d.s))
-        .y(d => yScale(Math.max(1e-4, d.p)))
-        .curve(d3.curveMonotoneX);
-
-      // Draw Overlaid Fit Line
-      g.append('path')
-        .datum(curvePoints)
-        .attr('fill', 'none')
-        .attr('stroke', modelMeta.color || '#38bdf8')
-        .attr('stroke-width', 2.2)
-        .attr('d', lineGen);
-    }
-
-    // Draw Error Bars for Data Points
-    const errGroup = g.append('g').attr('class', 'data-error-bars');
-    filteredPoints.forEach(pt => {
-      const yBottom = yScale(Math.max(1e-4, pt.pdf - pt.pdfErr));
-      const yTop = yScale(Math.max(1e-4, pt.pdf + pt.pdfErr));
-      const xPos = xScale(pt.s);
-
-      errGroup.append('line')
-        .attr('x1', xPos)
-        .attr('x2', xPos)
-        .attr('y1', yTop)
-        .attr('y2', yBottom)
-        .attr('stroke', 'rgba(255, 255, 255, 0.45)')
-        .attr('stroke-width', 1.2);
-
-      // Tick caps on error bars
-      errGroup.append('line')
-        .attr('x1', xPos - 2.5)
-        .attr('x2', xPos + 2.5)
-        .attr('y1', yTop)
-        .attr('y2', yTop)
-        .attr('stroke', 'rgba(255, 255, 255, 0.45)')
-        .attr('stroke-width', 1.2);
-
-      errGroup.append('line')
-        .attr('x1', xPos - 2.5)
-        .attr('x2', xPos + 2.5)
-        .attr('y1', yBottom)
-        .attr('y2', yBottom)
-        .attr('stroke', 'rgba(255, 255, 255, 0.45)')
-        .attr('stroke-width', 1.2);
-    });
-
-    // Draw Data Point Circles
-    g.selectAll('.cloud-pdf-dot')
-      .data(filteredPoints)
-      .join('circle')
-      .attr('class', 'cloud-pdf-dot')
-      .attr('cx', d => xScale(d.s))
-      .attr('cy', d => yScale(Math.max(1e-4, d.pdf)))
-      .attr('r', 3.5)
-      .attr('fill', '#ffffff')
-      .attr('stroke', '#090b10')
-      .attr('stroke-width', 1)
-      .on('mouseenter', function (event, pt) {
-        const hoverColor = (modelKey && MODEL_META[modelKey]?.color) || '#38bdf8';
-        d3.select(this).attr('r', 6).attr('fill', hoverColor);
-        showTooltip(event, `
+  // Draw Data Point Circles
+  g.selectAll('.cloud-pdf-dot')
+    .data(filteredPoints)
+    .join('circle')
+    .attr('class', 'cloud-pdf-dot')
+    .attr('cx', d => xScale(d.s))
+    .attr('cy', d => yScale(Math.max(1e-4, d.pdf)))
+    .attr('r', 3.5)
+    .attr('fill', '#ffffff')
+    .attr('stroke', '#090b10')
+    .attr('stroke-width', 1)
+    .on('mouseenter', function (event, pt) {
+      const hoverColor = (modelKey && MODEL_META[modelKey]?.color) || '#38bdf8';
+      d3.select(this).attr('r', 6).attr('fill', hoverColor);
+      showTooltip(event, `
           <div class="tooltip-title">Cloud #${cloudData.cloud_id} Data Bin</div>
           <div class="tooltip-row"><span class="label">s:</span><span class="val">${pt.s.toFixed(2)}</span></div>
-          <div class="tooltip-row"><span class="label">PDF p(s):</span><span class="val">${pt.pdf.toExponential(3)} ± ${pt.pdfErr.toExponential(3)}</span></div>
+          <div class="tooltip-row"><span class="label">PDF p(s):</span><span class="val">${pt.pdf.toExponential(3)} &plusmn; ${pt.pdfErr.toExponential(3)}</span></div>
           <div class="tooltip-row"><span class="label">Raw Counts:</span><span class="val">${pt.meanCount.toLocaleString()}</span></div>
           <div class="tooltip-row"><span class="label">SNR:</span><span class="val">${pt.snr.toFixed(1)}</span></div>
         `);
-      })
-      .on('mousemove', moveTooltip)
-      .on('mouseleave', function () {
-        d3.select(this).attr('r', 3.5).attr('fill', '#ffffff');
-        hideTooltip();
-      });
+    })
+    .on('mousemove', moveTooltip)
+    .on('mouseleave', function () {
+      d3.select(this).attr('r', 3.5).attr('fill', '#ffffff');
+      hideTooltip();
+    });
 }

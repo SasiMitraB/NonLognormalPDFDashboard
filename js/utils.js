@@ -6,25 +6,36 @@ const tooltip = d3.select('#tooltip');
 
 /* ── KaTeX Rendering Helpers ── */
 export function renderLatex(tex, displayMode = false) {
-  if (window.katex) {
+  if (!tex) return '';
+  if (typeof katex !== 'undefined' && typeof katex.renderToString === 'function') {
     try {
-      return katex.renderToString(tex, { displayMode, throwOnError: false });
+      return katex.renderToString(tex, {
+        displayMode: displayMode,
+        throwOnError: false
+      });
     } catch (e) {
+      console.warn('[KaTeX] renderToString error:', e);
       return tex;
     }
   }
-  return tex;
+  return displayMode ? `$$${tex}$$` : `$${tex}$`;
 }
 
-export function triggerKaTeXAutoRender() {
-  if (window.renderMathInElement) {
-    renderMathInElement(document.body, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false }
-      ],
-      throwOnError: false
-    });
+export function triggerKaTeXAutoRender(target = document.body) {
+  if (typeof renderMathInElement === 'function' && target) {
+    try {
+      renderMathInElement(target, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      });
+    } catch (err) {
+      console.warn('[KaTeX] renderMathInElement error:', err);
+    }
   }
 }
 
@@ -136,9 +147,9 @@ export function getDynamicLogTicks(domain, type = 'length') {
 }
 
 export function formatMassTick(d) {
-  if (d >= 1e6) return `${(d / 1e6).toFixed(d % 1e6 === 0 ? 0 : 1)}M M☉`;
-  if (d >= 1e3) return `${(d / 1e3).toFixed(d % 1e3 === 0 ? 0 : 1)}k M☉`;
-  return `${d} M☉`;
+  if (d >= 1e6) return `${(d / 1e6).toFixed(d % 1e6 === 0 ? 0 : 1)}M M_\\odot`;
+  if (d >= 1e3) return `${(d / 1e3).toFixed(d % 1e3 === 0 ? 0 : 1)}k M_\\odot`;
+  return `${d} M_\\odot`;
 }
 
 export function escapeHtml(str) {

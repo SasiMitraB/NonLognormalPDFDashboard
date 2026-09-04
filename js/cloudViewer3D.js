@@ -69,14 +69,14 @@ export class CloudViewer3D {
     this.container = containerEl;
     this.cloudId = cloudId;
     this.plotDivId = `plotly-cloud-3d-${Date.now()}`;
-    
+
     // Visualization state
     this.currentColormap = 'Cividis';
     this.renderMode = 'volume'; // 'volume' or 'isosurface'
     this.opacity = 0.18;
     this.showSlices = false;
     this.surfaceCount = 18;
-    
+
     // Memory & Data lifecycle
     this.h5Data = null;
     this.plotlyPlot = null;
@@ -105,7 +105,7 @@ export class CloudViewer3D {
           <div class="hud-telemetry" id="hud-telemetry">
             <span class="telemetry-badge" id="telem-box">Box: —</span>
             <span class="telemetry-badge" id="telem-voxels">Grid: —</span>
-            <span class="telemetry-badge" id="telem-maxd">Max $n_{\\text{H}}$: —</span>
+            <span class="telemetry-badge" id="telem-maxd">Max <i>n</i><sub>H</sub>: —</span>
           </div>
         </div>
 
@@ -370,7 +370,7 @@ export class CloudViewer3D {
       if (virtualFilename && FS_ref) {
         try {
           FS_ref.unlink(virtualFilename);
-        } catch (_) {}
+        } catch (_) { }
       }
     }
   }
@@ -392,10 +392,16 @@ export class CloudViewer3D {
         opacity: Math.min(0.85, this.opacity * 2.8),
         colorscale: this.currentColormap,
         colorbar: {
-          title: { text: 'nH (cm⁻³)', font: { color: '#cbd5e1', size: 11 } },
-          tickfont: { color: '#94a3b8', size: 10 },
-          len: 0.75,
-          thickness: 14
+          title: {
+            text: '<i>n</i><sub>H</sub> (cm<sup>-3</sup>)',
+            font: { color: '#cbd5e1', size: 20 }
+          },
+          tickfont: { color: '#94a3b8', size: 16 },
+          len: 0.62,
+          thickness: 15,
+          x: 1.02,
+          y: 0.45,
+          yanchor: 'middle'
         },
         slices: {
           z: { show: this.showSlices, locations: [0] }
@@ -420,10 +426,16 @@ export class CloudViewer3D {
       surface: { count: this.surfaceCount },
       colorscale: this.currentColormap,
       colorbar: {
-        title: { text: 'nH (cm⁻³)', font: { color: '#cbd5e1', size: 11 } },
+        title: {
+          text: '<i>n</i><sub>H</sub> (cm<sup>-3</sup>)',
+          font: { color: '#cbd5e1', size: 12 }
+        },
         tickfont: { color: '#94a3b8', size: 10 },
-        len: 0.75,
-        thickness: 14
+        len: 0.62,
+        thickness: 15,
+        x: 1.02,
+        y: 0.45,
+        yanchor: 'middle'
       },
       slices: {
         z: { show: this.showSlices, locations: [0] }
@@ -438,17 +450,11 @@ export class CloudViewer3D {
   buildLayout() {
     return {
       hovermode: false,
-      title: {
-        text: `3D Volume Rendering — Cloud #${this.cloudId}`,
-        font: { color: '#f1f5f9', size: 13, family: 'Plus Jakarta Sans, sans-serif' },
-        x: 0.05,
-        y: 0.96
-      },
       paper_bgcolor: '#06080e',
       plot_bgcolor: '#06080e',
       scene: {
         xaxis: {
-          title: { text: 'X (pc)', font: { color: '#94a3b8', size: 11 } },
+          title: { text: '$X \\ (\\mathrm{pc})$', font: { color: '#94a3b8', size: 11 } },
           tickfont: { color: '#64748b', size: 10 },
           backgroundcolor: '#06080e',
           gridcolor: '#1e293b',
@@ -456,7 +462,7 @@ export class CloudViewer3D {
           zerolinecolor: '#334155'
         },
         yaxis: {
-          title: { text: 'Y (pc)', font: { color: '#94a3b8', size: 11 } },
+          title: { text: '$Y \\ (\\mathrm{pc})$', font: { color: '#94a3b8', size: 11 } },
           tickfont: { color: '#64748b', size: 10 },
           backgroundcolor: '#06080e',
           gridcolor: '#1e293b',
@@ -464,7 +470,7 @@ export class CloudViewer3D {
           zerolinecolor: '#334155'
         },
         zaxis: {
-          title: { text: 'Z (pc)', font: { color: '#94a3b8', size: 11 } },
+          title: { text: '$Z \\ (\\mathrm{pc})$', font: { color: '#94a3b8', size: 11 } },
           tickfont: { color: '#64748b', size: 10 },
           backgroundcolor: '#06080e',
           gridcolor: '#1e293b',
@@ -476,7 +482,7 @@ export class CloudViewer3D {
           eye: { x: 1.55, y: 1.55, z: 1.25 }
         }
       },
-      margin: { l: 0, r: 0, b: 0, t: 36 },
+      margin: { l: 0, r: 60, b: 0, t: 36 },
       showlegend: false
     };
   }
@@ -530,12 +536,14 @@ export class CloudViewer3D {
     const [nx, ny, nz] = this.h5Data.shape;
     const step = this.h5Data.step;
 
-    if (boxEl) boxEl.textContent = `Box: ${bx} × ${by} × ${bz} pc`;
+    if (boxEl) boxEl.innerHTML = `Box: ${bx} &times; ${by} &times; ${bz} pc`;
     if (voxEl) {
       const stepNote = step > 1 ? ` (${this.h5Data.sampledShape.join('×')} sampled)` : '';
       voxEl.textContent = `Grid: ${nx}×${ny}×${nz}${stepNote}`;
     }
-    if (maxdEl) maxdEl.textContent = `Max: ${this.h5Data.maxD.toFixed(2)} cm⁻³`;
+    if (maxdEl) {
+      maxdEl.innerHTML = `Max <i>n</i><sub>H</sub>: ${this.h5Data.maxD.toFixed(2)} cm<sup>-3</sup>`;
+    }
   }
 
   dispose() {
@@ -544,7 +552,7 @@ export class CloudViewer3D {
     if (this.abortController) {
       try {
         this.abortController.abort();
-      } catch (_) {}
+      } catch (_) { }
       this.abortController = null;
     }
 
@@ -558,7 +566,7 @@ export class CloudViewer3D {
       if (typeof Plotly !== 'undefined') {
         try {
           Plotly.purge(plotEl);
-        } catch (_) {}
+        } catch (_) { }
       }
       plotEl.innerHTML = '';
     }

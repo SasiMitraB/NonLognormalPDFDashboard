@@ -12,14 +12,15 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+
 </head>
 
 <body>
@@ -62,7 +63,8 @@
             star formation in the interstellar medium (ISM), and is typically modelled as a lognormal distribution.
             Observational studies have been limited to two-dimensional column-density maps, which fail to capture the
             intermittency, which are key to alternative, non-lognormal models such as the Castaing-Hopkins Model. We use
-            the parsec-scale three-dimensional dust map of the local ISM ($\le 1250 \, \mathrm{pc}$) from Edenhofer et al. (2024)
+            the parsec-scale three-dimensional dust map of the local ISM ($\le 1250 \, \mathrm{pc}$) from Edenhofer et
+            al. (2024)
             to measure, for the first time, the volumetric density PDF of individual molecular clouds directly in 3D.
           </p>
           <p class="landing-body">
@@ -71,7 +73,8 @@
             with a power-law tail. Of the $475$ clouds successfully fit ($62\%$), the population shows an overwhelming
             preference for Castaing-Hopkins models ($76\%$ of fitted clouds, compared to $24\%$ for lognormal models),
             with a substantial fraction requiring non-zero intermittency. We report this as the first observational
-            evidence for non-lognormal density PDFs in the ISM, and find the local ISM is dominated by transonic to mildly supersonic turbulence.
+            evidence for non-lognormal density PDFs in the ISM, and find the local ISM is dominated by transonic to
+            mildly supersonic turbulence.
           </p>
           <nav class="landing-cta-row" aria-label="Jump to section">
             <a href="#theory-section" class="landing-cta-btn">
@@ -161,7 +164,7 @@
               <button class="theory-nav-item" data-theory-model="gauss_exp" role="tab" aria-selected="false"
                 id="tab-gauss_exp">
                 <div class="theory-nav-top">
-                  <span class="theory-badge badge-lnpl">$\mathcal{LN}\text{–}\mathcal{PL}$</span>
+                  <span class="theory-badge badge-lnpl">$\mathcal{LN}\text{--}\mathcal{PL}$</span>
                   <span class="theory-nav-tag">Gravoturbulent</span>
                 </div>
                 <div class="theory-nav-name">LN + Power Law</div>
@@ -171,7 +174,7 @@
               <button class="theory-nav-item" data-theory-model="hopkins_exp" role="tab" aria-selected="false"
                 id="tab-hopkins_exp">
                 <div class="theory-nav-top">
-                  <span class="theory-badge badge-chpl">$\mathcal{CH}\text{–}\mathcal{PL}$</span>
+                  <span class="theory-badge badge-chpl">$\mathcal{CH}\text{--}\mathcal{PL}$</span>
                   <span class="theory-nav-tag">Gravoturbulent</span>
                 </div>
                 <div class="theory-nav-name">Hopkins + Power Law</div>
@@ -267,7 +270,7 @@
               <span id="stat-powerlaw-pct" class="metric-badge amber">—</span>
             </div>
             <strong id="stat-powerlaw-count" class="metric-value">—</strong>
-            <span class="metric-meta">$\mathcal{LN-PL} + \mathcal{CH-PL}$ (Gravitational contraction)</span>
+            <span class="metric-meta">$\mathcal{LN\text{--}PL} + \mathcal{CH\text{--}PL}$ (Gravitational contraction)</span>
           </div>
 
           <div class="panel metric-card highlight-hopkins" id="card-hopkins">
@@ -336,11 +339,11 @@
               <div class="fit-stats-pills">
                 <div class="fit-pill">
                   <span class="fit-pill-label">Slope ($\alpha$)</span>
-                  <strong class="fit-pill-val" id="fit-slope">2.61 ± 0.03</strong>
+                  <strong class="fit-pill-val" id="fit-slope">$2.61 \pm 0.03$</strong>
                 </div>
                 <div class="fit-pill">
                   <span class="fit-pill-label">Intercept ($\beta$)</span>
-                  <strong class="fit-pill-val" id="fit-intercept">-1.06 ± 0.05</strong>
+                  <strong class="fit-pill-val" id="fit-intercept">$-1.06 \pm 0.05$</strong>
                 </div>
                 <div class="fit-pill">
                   <span class="fit-pill-label">Correlation ($R^2$)</span>
@@ -384,7 +387,7 @@
                 <button class="catalog-tab-btn" data-model="gauss_exp" role="tab" aria-selected="false"
                   id="cat-tab-gauss_exp">
                   <span class="tab-indicator" style="background: var(--color-lnpl)"></span>
-                  <span class="tab-tex">$\mathcal{LN}\text{–}\mathcal{PL}$</span>
+                  <span class="tab-tex">$\mathcal{LN}\text{--}\mathcal{PL}$</span>
                   <span class="tab-name">LN + Power Law</span>
                 </button>
                 <button class="catalog-tab-btn" data-model="hopkins" role="tab" aria-selected="false"
@@ -396,7 +399,7 @@
                 <button class="catalog-tab-btn" data-model="hopkins_exp" role="tab" aria-selected="false"
                   id="cat-tab-hopkins_exp">
                   <span class="tab-indicator" style="background: var(--color-chpl)"></span>
-                  <span class="tab-tex">$\mathcal{CH}\text{–}\mathcal{PL}$</span>
+                  <span class="tab-tex">$\mathcal{CH}\text{--}\mathcal{PL}$</span>
                   <span class="tab-name">Hopkins + Power Law</span>
                 </button>
                 <button class="catalog-tab-btn" data-model="Failed" role="tab" aria-selected="false"

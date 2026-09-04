@@ -22,17 +22,17 @@ export const MODEL_META = {
   },
   gauss_exp: {
     key: 'gauss_exp',
-    abbrTex: '\\mathcal{LN-PL}',
+    abbrTex: '\\mathcal{LN}\\text{--}\\mathcal{PL}',
     name: 'LN + Power Law',
-    fullNameTex: '\\mathcal{LN-PL} \\text{ (LN + Power Law)}',
+    fullNameTex: '\\mathcal{LN}\\text{--}\\mathcal{PL} \\text{ (LN + Power Law)}',
     color: '#C9A66B',   /* warm accent */
     desc: 'Log-normal core + self-gravitating tail'
   },
   hopkins_exp: {
     key: 'hopkins_exp',
-    abbrTex: '\\mathcal{CH-PL}',
+    abbrTex: '\\mathcal{CH}\\text{--}\\mathcal{PL}',
     name: 'Hopkins + Power Law',
-    fullNameTex: '\\mathcal{CH-PL} \\text{ (Hopkins + Power Law)}',
+    fullNameTex: '\\mathcal{CH}\\text{--}\\mathcal{PL} \\text{ (Hopkins + Power Law)}',
     color: '#C07878',   /* dusty rose */
     desc: 'Intermittent core + self-gravitating tail'
   },
