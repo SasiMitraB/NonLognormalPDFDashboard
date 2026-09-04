@@ -454,7 +454,7 @@ export class CloudViewer3D {
       plot_bgcolor: '#06080e',
       scene: {
         xaxis: {
-          title: { text: '$X \\ (\\mathrm{pc})$', font: { color: '#94a3b8', size: 11 } },
+          title: { text: 'X [pc]', font: { color: '#94a3b8', size: 11 } },
           tickfont: { color: '#64748b', size: 10 },
           backgroundcolor: '#06080e',
           gridcolor: '#1e293b',
@@ -462,7 +462,7 @@ export class CloudViewer3D {
           zerolinecolor: '#334155'
         },
         yaxis: {
-          title: { text: '$Y \\ (\\mathrm{pc})$', font: { color: '#94a3b8', size: 11 } },
+          title: { text: 'Y [pc]', font: { color: '#94a3b8', size: 11 } },
           tickfont: { color: '#64748b', size: 10 },
           backgroundcolor: '#06080e',
           gridcolor: '#1e293b',
@@ -470,7 +470,7 @@ export class CloudViewer3D {
           zerolinecolor: '#334155'
         },
         zaxis: {
-          title: { text: '$Z \\ (\\mathrm{pc})$', font: { color: '#94a3b8', size: 11 } },
+          title: { text: 'Z [pc]', font: { color: '#94a3b8', size: 11 } },
           tickfont: { color: '#64748b', size: 10 },
           backgroundcolor: '#06080e',
           gridcolor: '#1e293b',

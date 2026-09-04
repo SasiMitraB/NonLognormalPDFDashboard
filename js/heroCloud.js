@@ -101,7 +101,7 @@ export function initHeroCloud(cloudId = 441) {
         scene: {
           xaxis: {
             visible: true,
-            title: { text: '$X \\ (\\mathrm{pc})$', font: { color: '#8c8680', family: 'IBM Plex Mono, monospace', size: 10 } },
+            title: { text: 'X [pc]', font: { color: '#8c8680', family: 'IBM Plex Mono, monospace', size: 10 } },
             tickfont: { color: '#5a5650', family: 'IBM Plex Mono, monospace', size: 9 },
             showbackground: true,
             backgroundcolor: 'rgba(13, 12, 11, 0.4)',
@@ -110,7 +110,7 @@ export function initHeroCloud(cloudId = 441) {
           },
           yaxis: {
             visible: true,
-            title: { text: '$Y \\ (\\mathrm{pc})$', font: { color: '#8c8680', family: 'IBM Plex Mono, monospace', size: 10 } },
+            title: { text: 'Y [pc]', font: { color: '#8c8680', family: 'IBM Plex Mono, monospace', size: 10 } },
             tickfont: { color: '#5a5650', family: 'IBM Plex Mono, monospace', size: 9 },
             showbackground: true,
             backgroundcolor: 'rgba(13, 12, 11, 0.4)',
@@ -119,7 +119,7 @@ export function initHeroCloud(cloudId = 441) {
           },
           zaxis: {
             visible: true,
-            title: { text: '$Z \\ (\\mathrm{pc})$', font: { color: '#8c8680', family: 'IBM Plex Mono, monospace', size: 10 } },
+            title: { text: 'Z [pc]', font: { color: '#8c8680', family: 'IBM Plex Mono, monospace', size: 10 } },
             tickfont: { color: '#5a5650', family: 'IBM Plex Mono, monospace', size: 9 },
             showbackground: true,
             backgroundcolor: 'rgba(13, 12, 11, 0.4)',
