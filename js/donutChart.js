@@ -60,7 +60,7 @@ export function initDonutChart(distributionData) {
     .attr('class', 'slice')
     .attr('d', donutArcGenerator)
     .attr('fill', d => MODEL_META[d.data.model]?.color || '#64748b')
-    .attr('stroke', '#131722')
+    .attr('stroke', '#16191d')
     .attr('stroke-width', 2)
     .on('mouseenter', function (event, d) {
       if (state.selectedModel && state.selectedModel !== d.data.model) return;

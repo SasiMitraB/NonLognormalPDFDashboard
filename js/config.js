@@ -7,10 +7,10 @@ export const MODEL_META = {
   gaussian: {
     key: 'gaussian',
     abbrTex: '\\mathcal{LN}',
-    name: 'Log-Normal',
-    fullNameTex: '\\mathcal{LN} \\text{ (Log-Normal)}',
+    name: 'Lognormal',
+    fullNameTex: '\\mathcal{LN} \\text{ (Lognormal)}',
     color: '#7C9CBF',   /* steel blue accent */
-    desc: 'Pure supersonic isothermal turbulence'
+    desc: 'Turbulent model I'
   },
   hopkins: {
     key: 'hopkins',
@@ -18,31 +18,31 @@ export const MODEL_META = {
     name: 'Castaing-Hopkins',
     fullNameTex: '\\mathcal{CH} \\text{ (Castaing-Hopkins)}',
     color: '#8FAE9E',   /* sage secondary accent */
-    desc: 'Intermittent turbulent density field'
+    desc: 'Turbulent model II (non-lognormal)'
   },
   gauss_exp: {
     key: 'gauss_exp',
-    abbrTex: '\\mathcal{LN}\\text{--}\\mathcal{PL}',
+    abbrTex: '\\mathcal{LN}-\\mathcal{PL}',
     name: 'LN + Power Law',
-    fullNameTex: '\\mathcal{LN}\\text{--}\\mathcal{PL} \\text{ (LN + Power Law)}',
+    fullNameTex: '\\mathcal{LN}-\\mathcal{PL} \\text{ (LN + Power Law)}',
     color: '#C9A66B',   /* warm accent */
-    desc: 'Log-normal core + self-gravitating tail'
+    desc: 'Lognormal + power-law tail'
   },
   hopkins_exp: {
     key: 'hopkins_exp',
-    abbrTex: '\\mathcal{CH}\\text{--}\\mathcal{PL}',
-    name: 'Hopkins + Power Law',
-    fullNameTex: '\\mathcal{CH}\\text{--}\\mathcal{PL} \\text{ (Hopkins + Power Law)}',
+    abbrTex: '\\mathcal{CH}-\\mathcal{PL}',
+    name: 'CH + Power Law',
+    fullNameTex: '\\mathcal{CH}-\\mathcal{PL} \\text{ (CH + Power Law)}',
     color: '#C07878',   /* dusty rose */
-    desc: 'Intermittent core + self-gravitating tail'
+    desc: 'Castaing-Hopkins + power-law tail'
   },
   Failed: {
     key: 'Failed',
     abbrTex: '\\text{Failed}',
-    name: 'Unconstrained / Failed',
-    fullNameTex: '\\text{Unconstrained / Failed}',
+    name: 'No acceptable fit',
+    fullNameTex: '\\text{Failed}',
     color: '#4B5262',   /* muted slate */
-    desc: 'Non-converged or unconstrained fit'
+    desc: 'No model with reduced χ² ≤ 3'
   }
 };
 

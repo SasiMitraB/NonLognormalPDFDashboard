@@ -147,9 +147,9 @@ export function getDynamicLogTicks(domain, type = 'length') {
 }
 
 export function formatMassTick(d) {
-  if (d >= 1e6) return `${(d / 1e6).toFixed(d % 1e6 === 0 ? 0 : 1)}M M_\\odot`;
-  if (d >= 1e3) return `${(d / 1e3).toFixed(d % 1e3 === 0 ? 0 : 1)}k M_\\odot`;
-  return `${d} M_\\odot`;
+  if (d >= 1e6) return `${(d / 1e6).toFixed(d % 1e6 === 0 ? 0 : 1)}M`;
+  if (d >= 1e3) return `${(d / 1e3).toFixed(d % 1e3 === 0 ? 0 : 1)}k`;
+  return `${d}`;
 }
 
 export function escapeHtml(str) {

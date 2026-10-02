@@ -165,7 +165,7 @@ export function renderCloudCatalog(autoSelectFirst = true) {
 
     const massFormatted = d.mass > 0 ? formatScientific(d.mass) : '—';
     const lengthFormatted = d.lengthScale > 0 ? `${d.lengthScale.toFixed(1)} pc` : '—';
-    const chiFormatted = item.redChi2 > 0 ? item.redChi2.toFixed(3) : 'Unconstrained';
+    const chiFormatted = item.redChi2 > 0 ? item.redChi2.toFixed(3) : 'Failed';
     const noteExists = hasCloudNote(d.cloud_id);
 
     card.innerHTML = `
@@ -173,10 +173,10 @@ export function renderCloudCatalog(autoSelectFirst = true) {
         <div class="cloud-item-title-row">
           <span class="cloud-item-rank">#${index + 1}</span>
           <span class="cloud-item-id">Cloud ${d.cloud_id}</span>
-          ${noteExists ? `<span class="cloud-note-badge" title="Has notes in cloud_notes.json">📝</span>` : ''}
+          ${noteExists ? `<span class="cloud-note-badge" title="Has notes in cloud_notes.json">· note</span>` : ''}
         </div>
         <div class="cloud-item-sub">
-          <span>L: ${lengthFormatted}</span> · <span>M: ${massFormatted} $M_\\odot$</span>
+          <span>$L_\\mathrm{c}$ = ${lengthFormatted}</span> · <span>$M_\\mathrm{c}$ = ${massFormatted} $M_\\odot$</span>
         </div>
       </div>
       <div class="cloud-item-right">
@@ -228,10 +228,10 @@ export function renderCloudDetail(item, activeModelOverride = null) {
   if (activeModelKey === 'gaussian' && fit) {
     paramsHtml = `
       <div class="detail-params-section">
-        <div class="detail-params-title">Fitted Log-Normal Parameters</div>
+        <div class="detail-params-title">Fitted $\\mathcal{LN}$ parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Dispersion ($\\sigma_{\\mathrm{LN}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Mean ($\\mu$):</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\sigma_{\\mathcal{LN}}$:</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\mu_s$:</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
           <div class="detail-param-item"><span class="p-label">Amplitude ($A$):</span><strong class="p-val">${fit.A !== null ? fit.A.toFixed(3) : '—'}</strong></div>
         </div>
       </div>
@@ -239,34 +239,34 @@ export function renderCloudDetail(item, activeModelOverride = null) {
   } else if (activeModelKey === 'gauss_exp' && fit) {
     paramsHtml = `
       <div class="detail-params-section">
-        <div class="detail-params-title">Fitted $\\mathcal{LN}\\text{--}\\mathcal{PL}$ Parameters</div>
+        <div class="detail-params-title">Fitted $\\mathcal{LN}-\\mathcal{PL}$ parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Core Dispersion ($\\sigma_{\\mathrm{LN}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Threshold ($s_{\\mathrm{thresh}}$):</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Power-Law Slope ($\\Lambda$):</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Mean ($\\mu$):</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\sigma_{\\mathcal{LN}}$:</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$s_{\\mathrm{thresh}}$:</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\Lambda$:</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\mu_s$:</span><strong class="p-val">${fit.mu !== null ? fit.mu.toFixed(3) : '—'}</strong></div>
         </div>
       </div>
     `;
   } else if (activeModelKey === 'hopkins' && fit) {
     paramsHtml = `
       <div class="detail-params-section">
-        <div class="detail-params-title">Fitted Castaing-Hopkins Parameters</div>
+        <div class="detail-params-title">Fitted $\\mathcal{CH}$ parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Dispersion ($\\sigma_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Intermittency ($\\theta_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\sigma_{\\mathcal{CH}}$:</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\theta_{\\mathcal{CH}}$:</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
         </div>
       </div>
     `;
   } else if (activeModelKey === 'hopkins_exp' && fit) {
     paramsHtml = `
       <div class="detail-params-section">
-        <div class="detail-params-title">Fitted Hopkins + Power Law Parameters</div>
+        <div class="detail-params-title">Fitted $\\mathcal{CH}-\\mathcal{PL}$ parameters</div>
         <div class="detail-params-row">
-          <div class="detail-param-item"><span class="p-label">Dispersion ($\\sigma_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Intermittency ($\\theta_{\\mathrm{CH}}$):</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Threshold ($s_{\\mathrm{thresh}}$):</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
-          <div class="detail-param-item"><span class="p-label">Tail Slope ($\\Lambda$):</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\sigma_{\\mathcal{CH}}$:</span><strong class="p-val">${fit.sigma !== null ? fit.sigma.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\theta_{\\mathcal{CH}}$:</span><strong class="p-val">${fit.theta !== null ? fit.theta.toFixed(4) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$s_{\\mathrm{thresh}}$:</span><strong class="p-val">${fit.sThresh !== null ? fit.sThresh.toFixed(3) : '—'}</strong></div>
+          <div class="detail-param-item"><span class="p-label">$\\Lambda$:</span><strong class="p-val">${fit.lambda !== null ? fit.lambda.toFixed(3) : '—'}</strong></div>
         </div>
       </div>
     `;
@@ -274,8 +274,8 @@ export function renderCloudDetail(item, activeModelOverride = null) {
     paramsHtml = `
       <div class="detail-params-section">
         <div class="detail-params-title">Model Parameters</div>
-        <p style="font-size: 0.8rem; color: var(--text-sub);">
-          ${state.currentCatalogModel === 'Failed' ? 'No model fit selected by default. Click any model pill under the plot to overlay its fit curve.' : 'No fitted parameter data available.'}
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          ${state.currentCatalogModel === 'Failed' ? 'No model reached reduced $\\chi^2 \\le 3$, so no fit is shown by default. Click a model under the plot to overlay its fit.' : 'No fitted parameter data available.'}
         </p>
       </div>
     `;
@@ -301,9 +301,9 @@ export function renderCloudDetail(item, activeModelOverride = null) {
               ${!hasFit ? 'disabled' : ''}
               title="${hasFit ? `Inspect ${m.label} fit curve on this cloud` : 'Fit not converged'}">
         <span class="fit-pill-dot" style="background: ${pillColor};"></span>
-        <span class="fit-pill-label" style="font-weight: 700;">${m.label}:</span>
-        <strong class="fit-pill-val" style="color: ${isBest ? '#34d399' : (isCurrent ? 'var(--text-highlight)' : 'var(--text-muted)')};">${chiVal}</strong>
-        ${isBest ? `<span style="font-size: 0.62rem; color: #34d399; font-weight: 700;">(Best)</span>` : ''}
+        <span class="fit-pill-label">${m.label}</span>
+        <strong class="fit-pill-val" style="color: ${isCurrent || isBest ? 'var(--text-primary)' : 'var(--text-muted)'};">${chiVal}</strong>
+        ${isBest ? `<span style="font-size: 0.75rem; color: var(--text-muted);">best</span>` : ''}
       </button>
     `;
   }).join('');
@@ -323,10 +323,10 @@ export function renderCloudDetail(item, activeModelOverride = null) {
       <div class="detail-title-wrap">
         <div style="display: flex; align-items: center; gap: 0.6rem;">
           <h3 class="detail-cloud-title">Cloud #${d.cloud_id}</h3>
-          <span class="theory-badge" style="background: rgba(var(--accent-rgb), 0.1); border-color: ${badgeColor}; color: ${badgeColor};">
+          <span class="theory-badge" style="color: ${badgeColor};">
             ${renderLatex(badgeTex)}
           </span>
-          ${activeModelKey && activeModelKey !== d.preferred_model ? `<span class="active-filter-tag" style="font-size: 0.7rem; padding: 2px 6px;">Overlaying ${modelMeta.name}</span>` : ''}
+          ${activeModelKey && activeModelKey !== d.preferred_model ? `<span class="active-filter-tag">showing ${modelMeta.name} fit</span>` : ''}
         </div>
         <p class="detail-cloud-sub">
           Source: <code>${d.file_name || 'cloud_' + d.cloud_id + '.h5'}</code> · Preferred Model: <strong>${renderLatex(prefMeta.abbrTex || d.preferred_model)}</strong>
@@ -336,18 +336,18 @@ export function renderCloudDetail(item, activeModelOverride = null) {
       <div class="detail-fit-score-box">
         <div class="score-item">
           <span class="score-label">${activeModelKey ? `Reduced $\\chi^2$ (${modelMeta.name})` : 'Catalog Status'}</span>
-          <strong class="score-val" style="color: ${badgeColor};">${fit && fit.redChi2 ? fit.redChi2.toFixed(3) : (d.preferred_model === 'Failed' ? 'Unconstrained' : '—')}</strong>
+          <strong class="score-val" style="color: ${badgeColor};">${fit && fit.redChi2 ? fit.redChi2.toFixed(3) : (d.preferred_model === 'Failed' ? 'Failed' : '—')}</strong>
         </div>
         ${fit && fit.aic !== null ? `
-          <div class="score-item" style="border-left: 1px solid var(--panel-border); padding-left: 1rem;">
+          <div class="score-item">
             <span class="score-label">AIC</span>
-            <strong class="score-val" style="font-size: 0.95rem; color: var(--text-muted);">${fit.aic.toFixed(1)}</strong>
+            <strong class="score-val" style="color: var(--text-secondary);">${fit.aic.toFixed(1)}</strong>
           </div>
         ` : ''}
         ${fit && fit.bic !== null ? `
-          <div class="score-item" style="border-left: 1px solid var(--panel-border); padding-left: 1rem;">
+          <div class="score-item">
             <span class="score-label">BIC</span>
-            <strong class="score-val" style="font-size: 0.95rem; color: var(--text-muted);">${fit.bic.toFixed(1)}</strong>
+            <strong class="score-val" style="color: var(--text-secondary);">${fit.bic.toFixed(1)}</strong>
           </div>
         ` : ''}
       </div>
@@ -360,7 +360,7 @@ export function renderCloudDetail(item, activeModelOverride = null) {
         <div class="detail-plot-header">
           <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
             <div>
-              <span class="controls-title">${is3D ? `3D Cloud Volume View` : `Density PDF $p(s)$ vs $s$`}</span>
+              <span class="controls-title">${is3D ? `3D Cloud Volume View` : `Density PDF`}</span>
               <span class="controls-hint">${is3D ? `Interactive 3D WebGL volume with density colormap` : (activeModelKey ? `Data bins ($\\text{SNR} \\ge 5$) &amp; Fitted Line` : `Data bins ($\\text{SNR} \\ge 5$)`)}</span>
             </div>
           </div>
@@ -368,11 +368,9 @@ export function renderCloudDetail(item, activeModelOverride = null) {
           <!-- View Mode Switcher: PDF vs 3D View -->
           <div class="detail-view-mode-toggle" role="tablist" aria-label="Cloud visualization view mode">
             <button class="view-mode-btn ${!is3D ? 'active' : ''}" data-view-mode="pdf" id="btn-view-pdf" title="View 2D Logarithmic Density PDF and model fits">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
               <span>Density PDF</span>
             </button>
             <button class="view-mode-btn ${is3D ? 'active' : ''}" data-view-mode="3d" id="btn-view-3d" title="View interactive 3D WebGL density volume">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
               <span>3D View</span>
             </button>
           </div>
@@ -386,7 +384,7 @@ export function renderCloudDetail(item, activeModelOverride = null) {
         <div class="detail-plot-models-strip">
           <div class="detail-plot-models-header">
             <span class="detail-plot-models-label">Model Fits ($\\chi^2_{\\text{red}}$)</span>
-            <span class="detail-plot-models-hint">Click a model to overlay fit curve</span>
+            <span class="detail-plot-models-hint">Click a model to overlay its fit</span>
           </div>
           <div class="fit-stats-pills detail-plot-pills">
             ${modelComparisonPills}
@@ -402,11 +400,11 @@ export function renderCloudDetail(item, activeModelOverride = null) {
         <!-- Physical Properties Grid -->
         <div class="detail-grid-metrics">
           <div class="detail-metric-card">
-            <span class="label">Mass ($M$)</span>
+            <span class="label">Mass ($M_\\mathrm{c}$)</span>
             <strong class="val">${formatScientific(d.mass)} $M_\\odot$</strong>
           </div>
           <div class="detail-metric-card">
-            <span class="label">Length Scale ($L$)</span>
+            <span class="label">Length scale ($L_\\mathrm{c}$)</span>
             <strong class="val">${d.lengthScale > 0 ? d.lengthScale.toFixed(2) + ' pc' : '—'}</strong>
           </div>
           <div class="detail-metric-card">
@@ -451,11 +449,7 @@ export function renderCloudDetail(item, activeModelOverride = null) {
               <div class="detail-notes-section">
                 <div class="detail-notes-header">
                   <div class="detail-notes-title-group">
-                    <svg class="notes-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                    <span class="detail-notes-title">Cloud Notes &amp; Observations</span>
+                    <span class="detail-notes-title">Notes</span>
                   </div>
                   ${noteTag ? `<span class="notes-tag-pill">${escapeHtml(noteTag)}</span>` : ''}
                 </div>
@@ -677,7 +671,7 @@ function drawHistogramPlot(container, cloudData, binCenters, meanCounts, errorCo
     .attr('height', 28)
     .append('xhtml:div')
     .attr('class', 'scatter-axis-title-latex')
-    .html(renderLatex('s = \\ln(\\rho / \\langle\\rho\\rangle)'));
+    .html(renderLatex('s = \\ln(\\rho / \\rho_0)'));
 
   g.append('g')
     .attr('transform', 'rotate(-90)')
@@ -688,11 +682,11 @@ function drawHistogramPlot(container, cloudData, binCenters, meanCounts, errorCo
     .attr('height', 28)
     .append('xhtml:div')
     .attr('class', 'scatter-axis-title-latex')
-    .html(renderLatex('p(s) \\ [\\log \\text{ scale}]'));
+    .html(renderLatex('\\mathrm{PDF}(s)'));
 
   // Evaluate Fitted Model Curve (if a model is active and has parameters)
   if (modelKey && fitInfo) {
-    const modelMeta = MODEL_META[modelKey] || { color: '#38bdf8' };
+    const modelMeta = MODEL_META[modelKey] || { color: '#7C9CBF' };
     const numCurvePoints = 200;
     const curveStep = (sMax - sMin) / (numCurvePoints - 1);
     const curvePoints = [];
@@ -722,7 +716,7 @@ function drawHistogramPlot(container, cloudData, binCenters, meanCounts, errorCo
     g.append('path')
       .datum(curvePoints)
       .attr('fill', 'none')
-      .attr('stroke', modelMeta.color || '#38bdf8')
+      .attr('stroke', modelMeta.color || '#7C9CBF')
       .attr('stroke-width', 2.2)
       .attr('d', lineGen);
   }
@@ -772,12 +766,12 @@ function drawHistogramPlot(container, cloudData, binCenters, meanCounts, errorCo
     .attr('stroke', '#090b10')
     .attr('stroke-width', 1)
     .on('mouseenter', function (event, pt) {
-      const hoverColor = (modelKey && MODEL_META[modelKey]?.color) || '#38bdf8';
+      const hoverColor = (modelKey && MODEL_META[modelKey]?.color) || '#7C9CBF';
       d3.select(this).attr('r', 6).attr('fill', hoverColor);
       showTooltip(event, `
           <div class="tooltip-title">Cloud #${cloudData.cloud_id} Data Bin</div>
           <div class="tooltip-row"><span class="label">s:</span><span class="val">${pt.s.toFixed(2)}</span></div>
-          <div class="tooltip-row"><span class="label">PDF p(s):</span><span class="val">${pt.pdf.toExponential(3)} &plusmn; ${pt.pdfErr.toExponential(3)}</span></div>
+          <div class="tooltip-row"><span class="label">PDF(s):</span><span class="val">${pt.pdf.toExponential(3)} &plusmn; ${pt.pdfErr.toExponential(3)}</span></div>
           <div class="tooltip-row"><span class="label">Raw Counts:</span><span class="val">${pt.meanCount.toLocaleString()}</span></div>
           <div class="tooltip-row"><span class="label">SNR:</span><span class="val">${pt.snr.toFixed(1)}</span></div>
         `);

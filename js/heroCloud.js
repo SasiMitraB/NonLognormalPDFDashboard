@@ -106,7 +106,7 @@ export function initHeroCloud(cloudId = 441) {
             showbackground: true,
             backgroundcolor: 'rgba(13, 12, 11, 0.4)',
             gridcolor: 'rgba(46, 43, 39, 0.6)',
-            zerolinecolor: 'rgba(200, 120, 74, 0.2)'
+            zerolinecolor: 'rgba(255, 255, 255, 0.12)'
           },
           yaxis: {
             visible: true,
@@ -115,7 +115,7 @@ export function initHeroCloud(cloudId = 441) {
             showbackground: true,
             backgroundcolor: 'rgba(13, 12, 11, 0.4)',
             gridcolor: 'rgba(46, 43, 39, 0.6)',
-            zerolinecolor: 'rgba(200, 120, 74, 0.2)'
+            zerolinecolor: 'rgba(255, 255, 255, 0.12)'
           },
           zaxis: {
             visible: true,
@@ -124,7 +124,7 @@ export function initHeroCloud(cloudId = 441) {
             showbackground: true,
             backgroundcolor: 'rgba(13, 12, 11, 0.4)',
             gridcolor: 'rgba(46, 43, 39, 0.6)',
-            zerolinecolor: 'rgba(200, 120, 74, 0.2)'
+            zerolinecolor: 'rgba(255, 255, 255, 0.12)'
           },
           aspectmode: 'data',
           camera: {

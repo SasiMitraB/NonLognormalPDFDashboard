@@ -43,7 +43,7 @@ export function updateFitBanner(fitResult, modelKey) {
   // Render LaTeX Formula: M \propto L^{\alpha \pm \Delta \alpha}
   const slopeStr = fitResult.slope.toFixed(2);
   const slopeErrStr = fitResult.slopeErr.toFixed(2);
-  formulaEl.innerHTML = renderLatex(`M \\propto L^{${slopeStr} \\pm ${slopeErrStr}}`);
+  formulaEl.innerHTML = renderLatex(`M_\\mathrm{c} \\propto L_\\mathrm{c}^{\\,${slopeStr} \\pm ${slopeErrStr}}`);
 
   slopeEl.innerHTML = renderLatex(`${fitResult.slope.toFixed(2)} \\pm ${fitResult.slopeErr.toFixed(2)}`);
   interceptEl.innerHTML = renderLatex(`${fitResult.intercept.toFixed(2)} \\pm ${fitResult.interceptErr.toFixed(2)}`);
@@ -126,7 +126,7 @@ export function initScatterPlot() {
     .attr('height', 30)
     .append('xhtml:div')
     .attr('class', 'scatter-axis-title-latex')
-    .html(renderLatex('\\text{Characteristic Length Scale } L \\ (\\mathrm{pc}) \\ [\\log \\text{ scale}]'));
+    .html(renderLatex('\\text{Length scale } L_\\mathrm{c} \\ (\\mathrm{pc})'));
 
   g.append('g')
     .attr('transform', 'rotate(-90)')
@@ -137,7 +137,7 @@ export function initScatterPlot() {
     .attr('height', 30)
     .append('xhtml:div')
     .attr('class', 'scatter-axis-title-latex')
-    .html(renderLatex('\\text{Cloud Mass } M \\ (M_\\odot) \\ [\\log \\text{ scale}]'));
+    .html(renderLatex('\\text{Mass } M_\\mathrm{c} \\ (M_\\odot)'));
 
   // Clipped Plot Area Group
   const plotArea = g.append('g').attr('clip-path', `url(#${clipId})`);
@@ -164,9 +164,9 @@ export function initScatterPlot() {
       showTooltip(event, `
         <div class="tooltip-title" style="color: ${model.color}">Cloud #${d.cloud_id}</div>
         <div class="tooltip-row"><span class="label">Model:</span><span class="val">${renderLatex(model.fullNameTex)}</span></div>
-        <div class="tooltip-row"><span class="label">Mass:</span><span class="val">${formatScientific(d.mass)} ${renderLatex('M_\\odot')}</span></div>
-        <div class="tooltip-row"><span class="label">Length Scale:</span><span class="val">${d.lengthScale.toFixed(1)} pc</span></div>
-        <div class="tooltip-row"><span class="label">Turbulent ${renderLatex('\\sigma')}:</span><span class="val">${d.sigma > 0 ? d.sigma.toFixed(3) : '—'}</span></div>
+        <div class="tooltip-row"><span class="label">${renderLatex('M_\\mathrm{c}')}:</span><span class="val">${formatScientific(d.mass)} ${renderLatex('M_\\odot')}</span></div>
+        <div class="tooltip-row"><span class="label">${renderLatex('L_\\mathrm{c}')}:</span><span class="val">${d.lengthScale.toFixed(1)} pc</span></div>
+        <div class="tooltip-row"><span class="label">Best-fit ${renderLatex('\\sigma')}:</span><span class="val">${d.sigma > 0 ? d.sigma.toFixed(3) : '—'}</span></div>
         <div class="tooltip-row"><span class="label">Reduced ${renderLatex('\\chi^2')}:</span><span class="val">${d.redChi2 > 0 ? d.redChi2.toFixed(2) : '—'}</span></div>
       `);
     })

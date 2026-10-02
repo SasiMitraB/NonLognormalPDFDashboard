@@ -155,7 +155,7 @@ export function initDashboard() {
     if (statTotal) statTotal.textContent = state.totalClouds.toLocaleString();
     if (statFitted) statFitted.textContent = state.totalFitted.toLocaleString();
     if (statFittedPctBadge) statFittedPctBadge.textContent = `${fittedPct}%`;
-    if (statFittedMeta) statFittedMeta.textContent = `${fittedPct}% converged (${failedClouds} failed / unconstrained)`;
+    if (statFittedMeta) statFittedMeta.textContent = `At least one model with reduced χ² ≤ 3 (${failedClouds} failed)`;
 
     if (statPowerLawCount) statPowerLawCount.textContent = powerLawCount.toLocaleString();
     if (statPowerLawPct) statPowerLawPct.textContent = `${powerLawPct}%`;
